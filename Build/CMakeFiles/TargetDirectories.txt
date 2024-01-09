@@ -1,0 +1,4 @@
+D:/Repos/FusionXR/Extensions/Template/Build/CMakeFiles/openxr-gfxwrapper.dir
+D:/Repos/FusionXR/Extensions/Template/Build/CMakeFiles/Template.dir
+D:/Repos/FusionXR/Extensions/Template/Build/CMakeFiles/ALL_BUILD.dir
+D:/Repos/FusionXR/Extensions/Template/Build/CMakeFiles/ZERO_CHECK.dir

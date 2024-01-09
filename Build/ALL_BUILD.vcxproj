@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ResolveNugetPackages>false</ResolveNugetPackages>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_Small|Win32">
+      <Configuration>Release_Small</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Run_Only|Win32">
+      <Configuration>Run_Only</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Run_Only_Small|Win32">
+      <Configuration>Run_Only_Small</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Vitalize|Win32">
+      <Configuration>Vitalize</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Vitalize_Small|Win32">
+      <Configuration>Vitalize_Small</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{59B36D5F-30B0-3C3D-86D9-C0A2729BD9A9}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>Win32</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Small|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Run_Only|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Run_Only_Small|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Vitalize|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Vitalize_Small|Win32'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release_Small|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Run_Only|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Run_Only_Small|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Vitalize|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Vitalize_Small|Win32'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\OPENXR\include;D:\Repos\FusionXR\Extensions\Template\gfxwrapper;D:\Repos\FusionXR\Extensions\Template\sdk-files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\OPENXR\include;D:\Repos\FusionXR\Extensions\Template\gfxwrapper;D:\Repos\FusionXR\Extensions\Template\sdk-files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Small|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\OPENXR\include;D:\Repos\FusionXR\Extensions\Template\gfxwrapper;D:\Repos\FusionXR\Extensions\Template\sdk-files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Run_Only|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\OPENXR\include;D:\Repos\FusionXR\Extensions\Template\gfxwrapper;D:\Repos\FusionXR\Extensions\Template\sdk-files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Run_Only_Small|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\OPENXR\include;D:\Repos\FusionXR\Extensions\Template\gfxwrapper;D:\Repos\FusionXR\Extensions\Template\sdk-files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Vitalize|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\OPENXR\include;D:\Repos\FusionXR\Extensions\Template\gfxwrapper;D:\Repos\FusionXR\Extensions\Template\sdk-files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Vitalize_Small|Win32'">
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\OPENXR\include;D:\Repos\FusionXR\Extensions\Template\gfxwrapper;D:\Repos\FusionXR\Extensions\Template\sdk-files;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Repos\FusionXR\Extensions\Template\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule D:/Repos/FusionXR/Extensions/Template/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Repos/FusionXR/Extensions/Template -BD:/Repos/FusionXR/Extensions/Template/Build --check-stamp-file D:/Repos/FusionXR/Extensions/Template/Build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Program Files (x86)\OPENXR\cmake\OpenXRConfig.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRConfigVersion.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRTargets-debug.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRTargets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-namespaced-targets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-targets-debug.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-targets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncppConfig.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncppConfigVersion.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeFindDependencyMacro.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPkgConfig.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeCCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeCXXCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeRCCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeSystem.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\Default.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\DefaultCXX.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\FindOpenXR.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\Utils.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule D:/Repos/FusionXR/Extensions/Template/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Repos/FusionXR/Extensions/Template -BD:/Repos/FusionXR/Extensions/Template/Build --check-stamp-file D:/Repos/FusionXR/Extensions/Template/Build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Program Files (x86)\OPENXR\cmake\OpenXRConfig.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRConfigVersion.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRTargets-debug.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRTargets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-namespaced-targets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-targets-debug.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-targets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncppConfig.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncppConfigVersion.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeFindDependencyMacro.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPkgConfig.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeCCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeCXXCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeRCCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeSystem.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\Default.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\DefaultCXX.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\FindOpenXR.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\Utils.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release_Small|Win32'">Building Custom Rule D:/Repos/FusionXR/Extensions/Template/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release_Small|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Repos/FusionXR/Extensions/Template -BD:/Repos/FusionXR/Extensions/Template/Build --check-stamp-file D:/Repos/FusionXR/Extensions/Template/Build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release_Small|Win32'">C:\Program Files (x86)\OPENXR\cmake\OpenXRConfig.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRConfigVersion.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRTargets-debug.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRTargets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-namespaced-targets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-targets-debug.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-targets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncppConfig.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncppConfigVersion.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeFindDependencyMacro.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPkgConfig.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeCCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeCXXCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeRCCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeSystem.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\Default.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\DefaultCXX.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\FindOpenXR.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\Utils.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release_Small|Win32'">D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release_Small|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Run_Only|Win32'">Building Custom Rule D:/Repos/FusionXR/Extensions/Template/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Run_Only|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Repos/FusionXR/Extensions/Template -BD:/Repos/FusionXR/Extensions/Template/Build --check-stamp-file D:/Repos/FusionXR/Extensions/Template/Build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Run_Only|Win32'">C:\Program Files (x86)\OPENXR\cmake\OpenXRConfig.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRConfigVersion.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRTargets-debug.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRTargets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-namespaced-targets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-targets-debug.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-targets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncppConfig.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncppConfigVersion.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeFindDependencyMacro.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPkgConfig.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeCCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeCXXCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeRCCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeSystem.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\Default.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\DefaultCXX.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\FindOpenXR.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\Utils.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Run_Only|Win32'">D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Run_Only|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Run_Only_Small|Win32'">Building Custom Rule D:/Repos/FusionXR/Extensions/Template/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Run_Only_Small|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Repos/FusionXR/Extensions/Template -BD:/Repos/FusionXR/Extensions/Template/Build --check-stamp-file D:/Repos/FusionXR/Extensions/Template/Build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Run_Only_Small|Win32'">C:\Program Files (x86)\OPENXR\cmake\OpenXRConfig.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRConfigVersion.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRTargets-debug.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRTargets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-namespaced-targets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-targets-debug.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-targets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncppConfig.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncppConfigVersion.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeFindDependencyMacro.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPkgConfig.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeCCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeCXXCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeRCCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeSystem.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\Default.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\DefaultCXX.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\FindOpenXR.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\Utils.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Run_Only_Small|Win32'">D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Run_Only_Small|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Vitalize|Win32'">Building Custom Rule D:/Repos/FusionXR/Extensions/Template/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Vitalize|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Repos/FusionXR/Extensions/Template -BD:/Repos/FusionXR/Extensions/Template/Build --check-stamp-file D:/Repos/FusionXR/Extensions/Template/Build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Vitalize|Win32'">C:\Program Files (x86)\OPENXR\cmake\OpenXRConfig.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRConfigVersion.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRTargets-debug.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRTargets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-namespaced-targets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-targets-debug.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-targets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncppConfig.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncppConfigVersion.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeFindDependencyMacro.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPkgConfig.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeCCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeCXXCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeRCCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeSystem.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\Default.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\DefaultCXX.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\FindOpenXR.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\Utils.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Vitalize|Win32'">D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Vitalize|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Vitalize_Small|Win32'">Building Custom Rule D:/Repos/FusionXR/Extensions/Template/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Vitalize_Small|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/Repos/FusionXR/Extensions/Template -BD:/Repos/FusionXR/Extensions/Template/Build --check-stamp-file D:/Repos/FusionXR/Extensions/Template/Build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Vitalize_Small|Win32'">C:\Program Files (x86)\OPENXR\cmake\OpenXRConfig.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRConfigVersion.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRTargets-debug.cmake;C:\Program Files (x86)\OPENXR\cmake\OpenXRTargets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-namespaced-targets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-targets-debug.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncpp-targets.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncppConfig.cmake;C:\Program Files (x86)\jsoncpp\lib\cmake\jsoncpp\jsoncppConfigVersion.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeFindDependencyMacro.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckCSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindPkgConfig.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Internal\CheckSourceCompiles.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeCCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeCXXCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeRCCompiler.cmake;D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\3.28.1\CMakeSystem.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\Default.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\DefaultCXX.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\FindOpenXR.cmake;D:\Repos\FusionXR\Extensions\Template\CMake\Utils.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Vitalize_Small|Win32'">D:\Repos\FusionXR\Extensions\Template\Build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Vitalize_Small|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:\Repos\FusionXR\Extensions\Template\Build\ZERO_CHECK.vcxproj">
+      <Project>{3B8A14D7-D393-3FAE-96F1-677A4059D14F}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="D:\Repos\FusionXR\Extensions\Template\Build\Template.vcxproj">
+      <Project>{4CAC1BBA-E526-348D-8D07-B970DFCEAA4D}</Project>
+      <Name>Template</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\Repos\FusionXR\Extensions\Template\Build\openxr-gfxwrapper.vcxproj">
+      <Project>{6891F63A-8C3E-3253-8A34-85AFF2BBB715}</Project>
+      <Name>openxr-gfxwrapper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
