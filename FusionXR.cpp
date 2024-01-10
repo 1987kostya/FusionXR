@@ -166,8 +166,9 @@ void CheckProgram(GLuint prog) {
 IrrlichtDevice* device;
 static void OpenGLInitializeResources()
 {
+    glGenFramebuffers(1, &g_swapchainFramebuffer);
 
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    /*GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &VertexShaderGlsl, nullptr);
     glCompileShader(vertexShader);
     CheckShader(vertexShader);
@@ -208,17 +209,15 @@ static void OpenGLInitializeResources()
     glVertexAttribPointer(g_vertexAttribCoords, 3, GL_FLOAT, GL_FALSE, sizeof(Geometry::Vertex), nullptr);
     glVertexAttribPointer(g_vertexAttribColor, 3, GL_FLOAT, GL_FALSE, sizeof(Geometry::Vertex),
         reinterpret_cast<const void*>(sizeof(XrVector3f)));
-    device = createDevice(video::EDT_OPENGL, irr::core::dimension2d<u32>(640, 480), 16, false, false, false, 0);
-    device->getSceneManager()->addCubeSceneNode();
-    device->getSceneManager()->addCameraSceneNode(0, irr::core::vector3df(0, 30, -40), irr::core::vector3df(0, 5, 0));
-    auto videoData = device->getVideoDriver()->getExposedVideoData().OpenGLWin32;
-    g_graphicsBinding.hDC = reinterpret_cast<HDC>(videoData.HDc);//GetDC(glfwGetWin32Window(glfwWindow));//g_window.context.hDC;
-    g_graphicsBinding.hGLRC = reinterpret_cast<HGLRC>(videoData.HRc);//g_window.context.hGLRC;
-    glGenFramebuffers(1, &g_swapchainFramebuffer);
-
+    */
+    //device = createDevice(video::EDT_OPENGL, irr::core::dimension2d<u32>(640, 480), 16, false, false, false, 0);
+    //device->getSceneManager()->addCubeSceneNode();
+    //device->getSceneManager()->addCameraSceneNode(0, irr::core::vector3df(0, 30, -40), irr::core::vector3df(0, 5, 0));
+    //auto videoData = device->getVideoDriver()->getExposedVideoData().OpenGLWin32;
+    
 
 }
-GLFWwindow* glfwWindow; // (In the accompanying source code, this variable is global for simplicity)
+//GLFWwindow* glfwWindow; // (In the accompanying source code, this variable is global for simplicity)
 
 static void OpenGLInitializeDevice(XrInstance instance, XrSystemId systemId)
 {
@@ -237,12 +236,16 @@ static void OpenGLInitializeDevice(XrInstance instance, XrSystemId systemId)
     ksGpuSurfaceDepthFormat depthFormat{ KS_GPU_SURFACE_DEPTH_FORMAT_D24 };
     ksGpuSampleCount sampleCount{ KS_GPU_SAMPLE_COUNT_1 };
 
-    if (!ksGpuWindow_Create(&g_window, &driverInstance, &queueInfo, 0, colorFormat, depthFormat, sampleCount, 640, 480, false)) {
-        THROW("Unable to create GL context");
-    }
+    //if (!ksGpuWindow_Create(&g_window, &driverInstance, &queueInfo, 0, colorFormat, depthFormat, sampleCount, 640, 480, false)) {
+    //    THROW("Unable to create GL context");
+   // }
+    g_graphicsBinding.hDC = wglGetCurrentDC();
+    g_graphicsBinding.hGLRC = wglGetCurrentContext();
 
+    //g_graphicsBinding.hDC = reinterpret_cast<HDC>(videoData.HDc);//GetDC(glfwGetWin32Window(glfwWindow));//g_window.context.hDC;
+    //g_graphicsBinding.hGLRC = reinterpret_cast<HGLRC>(videoData.HRc);//g_window.context.hGLRC;
 
-    if (!glfwInit())
+    /*if (!glfwInit())
     {
         fprintf(stderr, "Failed to initialize GLFW\n");
         return;
@@ -265,8 +268,9 @@ static void OpenGLInitializeDevice(XrInstance instance, XrSystemId systemId)
     glfwMakeContextCurrent(glfwWindow); // Initialize GLEW
     GlInitExtensions();
     glfwWindowHwnd = glfwGetWin32Window(glfwWindow);
-
-
+    */
+    
+    GlInitExtensions();
     GLint major = 0;
     GLint minor = 0;
     glGetIntegerv(GL_MAJOR_VERSION, &major);
@@ -279,8 +283,8 @@ static void OpenGLInitializeDevice(XrInstance instance, XrSystemId systemId)
         //THROW("Runtime does not support desired Graphics API and/or version");
     }
 #ifdef XR_USE_PLATFORM_WIN32
-    g_graphicsBinding.hDC = GetDC(glfwGetWin32Window(glfwWindow));//g_window.context.hDC;
-    g_graphicsBinding.hGLRC = wglGetCurrentContext();//g_window.context.hGLRC;
+    //g_graphicsBinding.hDC = GetDC(glfwGetWin32Window(glfwWindow));//g_window.context.hDC;
+    //g_graphicsBinding.hGLRC = wglGetCurrentContext();//g_window.context.hGLRC;
 #elif defined(XR_USE_PLATFORM_XLIB)
     g_graphicsBinding.xDisplay = g_window.context.xDisplay;
     g_graphicsBinding.visualid = g_window.context.visualid;
@@ -384,99 +388,33 @@ static uint32_t OpenGLGetDepthTexture(uint32_t colorTexture)
 
 
 
-
+XrCompositionLayerProjectionView currentLayerInfo;
 static void OpenGLRenderView(const XrCompositionLayerProjectionView& layerView, const XrSwapchainImageBaseHeader* swapchainImage,
     int64_t swapchainFormat, const std::vector<Space>& spaces)
 {
+    glBindFramebuffer(GL_FRAMEBUFFER, g_swapchainFramebuffer);
+    const uint32_t colorTexture = reinterpret_cast<const XrSwapchainImageOpenGLKHR*>(swapchainImage)->image;
+
+    glViewport(static_cast<GLint>(layerView.subImage.imageRect.offset.x),
+        static_cast<GLint>(layerView.subImage.imageRect.offset.y),
+        static_cast<GLsizei>(layerView.subImage.imageRect.extent.width),
+        static_cast<GLsizei>(layerView.subImage.imageRect.extent.height));
+
+    const uint32_t depthTexture = OpenGLGetDepthTexture(colorTexture);
+
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTexture, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
 
     
-    //wglMakeCurrent(g_graphicsBinding.hDC, g_graphicsBinding.hGLRC);
 
-    /**/
-
-    //if (device->run())
-    {
-        /*irr::video::SExposedVideoData data;
-        data.OpenGLWin32.HDc = g_graphicsBinding.hDC;
-        data.OpenGLWin32.HRc = g_graphicsBinding.hGLRC;
-        data.OpenGLWin32.HWnd = glfwGetWin32Window(glfwWindow);*/
-
-        glBindFramebuffer(GL_FRAMEBUFFER, g_swapchainFramebuffer);
-        const uint32_t colorTexture = reinterpret_cast<const XrSwapchainImageOpenGLKHR*>(swapchainImage)->image;
-
-        glViewport(static_cast<GLint>(layerView.subImage.imageRect.offset.x),
-            static_cast<GLint>(layerView.subImage.imageRect.offset.y),
-            static_cast<GLsizei>(layerView.subImage.imageRect.extent.width),
-            static_cast<GLsizei>(layerView.subImage.imageRect.extent.height));
-
-        const uint32_t depthTexture = OpenGLGetDepthTexture(colorTexture);
-
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTexture, 0);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
-        device->getVideoDriver()->beginScene(true, true, irr::video::SColor::SColor(255, 100, 101, 140));
-        
-        gayDrawAll();
-
-        //device->getSceneManager()->drawAll();
-        device->getVideoDriver()->endScene();
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        //gayBeginScene();
-
-        //gayEndScene();
-        
-        //
-        //glfwSwapBuffers(glfwWindow);
-    }
-    
-    /*gayBeginScene();
-    * 
-
-    GLfloat vertices[] = {
-    -0.5f, -0.5f, 0.0f,  // Bottom left
-     0.0f,  0.5f, 0.0f,  // Top middle
-     0.5f, -0.5f, 0.0f   // Bottom right
-    };
-
-    // Define the indices for the triangle
-    GLuint indices[] = {
-        0, 1, 2  // The first triangle
-    };
-    vertices[4] = sin(GetTimeNanoseconds() / 1000000);
-    // Generate and bind a VBO for the vertices
-    GLuint VBO;
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    // Generate and bind an EBO for the indices
-    GLuint EBO;
-    glGenBuffers(1, &EBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    // Link vertex attributes
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    // Draw the triangle
-    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-
+    gayBeginScene();
+    memcpy(&currentLayerInfo, &layerView, sizeof(XrCompositionLayerProjectionView));
     gayDrawAll();
-
     gayEndScene();
-    //RetardDraw();
-    std::cout << "Error:" << glGetError() << std::endl;
-
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);*/
-   
-
-    /*SwapBuffers(g_graphicsBinding.hDC);
-    glfwSwapBuffers(glfwWindow);
-    // Swap our window every other eye for RenderDoc
-    static int everyOther = 0;
-    if ((everyOther++ & 1) != 0) {
-        ksGpuWindow_SwapBuffers(&g_window);
-    }*/
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    gayBeginScene();
+    gayDrawAll();
+    gayEndScene();
 }
 
 
@@ -1158,6 +1096,7 @@ void OpenXRPollActions() {
 bool OpenXRRenderLayer(XrTime predictedDisplayTime, std::vector<XrCompositionLayerProjectionView>& projectionLayerViews,
     XrCompositionLayerProjection& layer)
 {
+
     XrResult res;
 
     XrViewState viewState{ XR_TYPE_VIEW_STATE };
@@ -1263,6 +1202,7 @@ bool OpenXRRenderLayer(XrTime predictedDisplayTime, std::vector<XrCompositionLay
 
 void OpenXRRenderFrame()
 {
+
     CHECK(g_session != XR_NULL_HANDLE);
 
     XrFrameWaitInfo frameWaitInfo{ XR_TYPE_FRAME_WAIT_INFO };
@@ -1287,6 +1227,7 @@ void OpenXRRenderFrame()
     frameEndInfo.layerCount = (uint32_t)layers.size();
     frameEndInfo.layers = layers.data();
     CHECK_XRCMD(xrEndFrame(g_session, &frameEndInfo));
+
 }
 
 void OpenXRTearDown()

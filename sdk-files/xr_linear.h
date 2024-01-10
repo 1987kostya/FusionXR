@@ -515,6 +515,28 @@ inline static void XrMatrix4x4f_CreateProjection(XrMatrix4x4f* result, GraphicsA
         result->m[15] = 0.0f;
     } else {
         // normal projection
+        const float h = 1/(tanAngleHeight * 0.5);
+        const float w = tanAngleWidth;
+
+       /*result->m[0] = w;
+       result->m[1] = 0;
+       result->m[2] = 0;
+       result->m[3] = 0;
+
+       result->m[4] = 0;
+       result->m[5] = h;
+       result->m[6] = 0;
+       result->m[7] = 0;
+
+       result->m[8] = 0;
+       result->m[9] = 0;
+       result->m[10] = (farZ / (farZ - nearZ));
+       result->m[11] = 1;
+
+       result->m[12] = 0;
+       result->m[13] = 0;
+       result->m[14] = (-nearZ * farZ / (farZ - nearZ));
+       result->m[15] = 0;*/
         result->m[0] = 2.0f / tanAngleWidth;
         result->m[4] = 0.0f;
         result->m[8] = (tanAngleRight + tanAngleLeft) / tanAngleWidth;
@@ -534,6 +556,7 @@ inline static void XrMatrix4x4f_CreateProjection(XrMatrix4x4f* result, GraphicsA
         result->m[7] = 0.0f;
         result->m[11] = -1.0f;
         result->m[15] = 0.0f;
+
     }
 }
 

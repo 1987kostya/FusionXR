@@ -1,5 +1,10 @@
 #pragma once
+#include <openxr/openxr.h>
 
+extern int lastRdata;
+typedef void(__thiscall* setTransform_t)(int*, int, int*);
+extern setTransform_t setTransform_o;
+extern XrCompositionLayerProjectionView currentLayerInfo;
 void OpenXRCreateInstance();
 void OpenXRInitializeSystem();
 void OpenXRInitializeSession();
@@ -10,9 +15,7 @@ void OpenXRPollActions();
 void OpenXRRenderFrame();
 typedef short(__stdcall* CFile_Open_t)(void* rdPtr);
 static CFile_Open_t CFile_Open_o;
-static void* lastRdata;
 static HWND glfwWindowHwnd;
-void RetardDraw();
 static int shit[3] = { 0 }; // сделал глобальным для __asm
 void gayBeginScene();
 void gayEndScene();
