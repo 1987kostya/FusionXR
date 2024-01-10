@@ -2,23 +2,23 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{e7d0300c-9273-423d-a3e7-5a58a96aabeb}</UniqueIdentifier>
+      <UniqueIdentifier>{430246c9-7ae5-4c17-a922-2f3b9362c290}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{012488d3-d59a-4a88-a194-e4e595f4a5d3}</UniqueIdentifier>
+      <UniqueIdentifier>{01130e1f-770e-4650-b7a7-8a075b419e74}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl</Extensions>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{f493c225-3b70-4545-b3ed-f5283de9c890}</UniqueIdentifier>
+      <UniqueIdentifier>{3f57c56b-78b6-4e9e-914d-14d27bd23cc0}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
     <Filter Include="Information">
-      <UniqueIdentifier>{0b235844-3fec-4486-9050-07b471961d8e}</UniqueIdentifier>
+      <UniqueIdentifier>{8ad8eea1-3ea9-43ad-8083-fb6427ecbdc5}</UniqueIdentifier>
       <Extensions>txt</Extensions>
     </Filter>
     <Filter Include="MMF Headers">
-      <UniqueIdentifier>{5ad6dbca-e91f-4a5f-8df0-d43e3b36c58e}</UniqueIdentifier>
+      <UniqueIdentifier>{92424031-b37d-4e44-a385-1ab0e5dfb52e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +34,9 @@
     <ClCompile Include="Runtime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FusionXR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Ext.def">
@@ -42,6 +45,7 @@
     <None Include="..\Help\CoxSdk.chm">
       <Filter>Information</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ext.rc">
@@ -49,9 +53,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -130,12 +131,24 @@
     <ClInclude Include="..\..\Inc\WinMacro.h">
       <Filter>MMF Headers</Filter>
     </ClInclude>
+    <ClInclude Include="FusionXR.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FCommon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="EXTICON.BMP">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="EXTIMG.BMP">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\EXTICON.BMP">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RES\EXTIMG.BMP">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

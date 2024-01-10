@@ -294,11 +294,11 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;STRICT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\Inc;D:\Repos\FusionXR\Extensions\Template\gfxwrapper;D:\Repos\FusionXR\Extensions\Template\sdk-files;C:\Program Files (x86)\OPENXR\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;STRICT;XR_USE_GRAPHICS_API_OPENGL;_CRT_SECURE_NO_WARNINGS;XR_OS_WINDOWS;XR_USE_PLATFORM_WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeaderOutputFile>.\Debug/Template.pch</PrecompiledHeaderOutputFile>
       <AssemblerListingLocation>.\Debug/</AssemblerListingLocation>
       <ObjectFileName>.\Debug/</ObjectFileName>
@@ -314,7 +314,7 @@
       <ResourceOutputFileName>.\Debug\Ext.res</ResourceOutputFileName>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;..\..\lib\mmfs2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;..\..\lib\mmfs2.lib;openxr_loaderd.lib;C:\Program Files (x86)\jsoncpp\lib\jsoncpp.lib;pathcch.lib;opengl32.lib;openxr-gfxwrapper.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>.\Debug/Template.mfx</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <ModuleDefinitionFile>.\Ext.def</ModuleDefinitionFile>
@@ -322,6 +322,7 @@
       <ProgramDatabaseFile>.\Debug/Template.pdb</ProgramDatabaseFile>
       <ImportLibrary>.\Debug/Template.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>C:/Program Files (x86)/OPENXR/lib/$(Configuration);C:/Program Files (x86)/OPENXR/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -477,12 +478,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Edittime.cpp" />
+    <ClCompile Include="FusionXR.cpp" />
     <ClCompile Include="General.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Runtime.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Help\CoxSdk.chm" />
     <None Include="Ext.def" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ext.rc" />
@@ -512,15 +516,25 @@
     <ClInclude Include="..\..\Inc\Surface.h" />
     <ClInclude Include="..\..\Inc\TigsExt.hpp" />
     <ClInclude Include="..\..\Inc\WinMacro.h" />
-    <ClInclude Include="Common.h" />
+    <ClInclude Include="FCommon.h" />
+    <ClInclude Include="FusionXR.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="EXTICON.BMP" />
     <Image Include="EXTIMG.BMP" />
+    <Image Include="RES\EXTICON.BMP" />
+    <Image Include="RES\EXTIMG.BMP" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\Detours.4.0.1\build\native\Detours.targets" Condition="Exists('packages\Detours.4.0.1\build\native\Detours.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Detours.4.0.1\build\native\Detours.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Detours.4.0.1\build\native\Detours.targets'))" />
+  </Target>
 </Project>

@@ -1,4 +1,4 @@
-//Microsoft Developer Studio generated resource script.
+// Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
 
@@ -7,7 +7,7 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "..\..\inc\ccx.h"
+#include "..\..\Inc\ccx.h"
 #define APSTUDIO_HIDDEN_SYMBOLS
 #include "windows.h"
 #undef APSTUDIO_HIDDEN_SYMBOLS
@@ -16,15 +16,12 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
 
-#ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
@@ -47,18 +44,14 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "Comments", "\0"
-            VALUE "CompanyName", "Clickteam\0"
-            VALUE "FileDescription", "V2Template32 Object\0"
-            VALUE "FileVersion", "2.00\0"
-            VALUE "InternalName", "V2TEMPLATE32\0"
-            VALUE "LegalCopyright", "Copyright © 2000 Clickteam\0"
-            VALUE "LegalTrademarks", "\0"
-            VALUE "OriginalFilename", "V2TEMPLATE32.mfx\0"
-            VALUE "PrivateBuild", "\0"
-            VALUE "ProductName", "\0"
-            VALUE "ProductVersion", "1, 0, 0, 0\0"
-            VALUE "SpecialBuild", "00000001\0"
+            VALUE "CompanyName", "Clickteam"
+            VALUE "FileDescription", "V2Template32 Object"
+            VALUE "FileVersion", "2.00"
+            VALUE "InternalName", "V2TEMPLATE32"
+            VALUE "LegalCopyright", "Copyright © 2000 Clickteam"
+            VALUE "OriginalFilename", "V2TEMPLATE32.mfx"
+            VALUE "ProductVersion", "1, 0, 0, 0"
+            VALUE "SpecialBuild", "00000001"
         END
     END
     BLOCK "VarFileInfo"
@@ -67,15 +60,13 @@ BEGIN
     END
 END
 
-#endif    // !_MAC
-
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// Data
+// RCDATA
 //
 
-KPX_MAGICNUMBER RCDATA MOVEABLE PURE 
+KPX_MAGICNUMBER RCDATA 
 BEGIN
     0x2516, 0x5908
 END
@@ -88,16 +79,20 @@ END
 
 #if defined(APSTUDIO_INVOKED) || defined(EDITOR)
 #if defined(APSTUDIO_INVOKED)
-EXO_ICON$(EDITOR)       BITMAP  MOVEABLE PURE   "RES\\EXTICON.BMP"
+EXO_ICON$(EDITOR)       BITMAP                  "RES\\EXTICON.BMP"
+
 #else
-EXO_ICON                BITMAP  MOVEABLE PURE   "RES\\EXTICON.BMP"
+EXO_ICON                BITMAP                  "RES\\EXTICON.BMP"
+
 #endif
 #endif
 #if defined(APSTUDIO_INVOKED) || defined(EDITOR)
 #if defined(APSTUDIO_INVOKED)
-EXO_IMAGE$(EDITOR)      BITMAP  MOVEABLE PURE   "RES\\EXTIMG.BMP"
+EXO_IMAGE$(EDITOR)      BITMAP                  "RES\\EXTIMG.BMP"
+
 #else
-EXO_IMAGE               BITMAP  MOVEABLE PURE   "RES\\EXTIMG.BMP"
+EXO_IMAGE               BITMAP                  "RES\\EXTIMG.BMP"
+
 #endif
 #endif
 
@@ -108,44 +103,96 @@ EXO_IMAGE               BITMAP  MOVEABLE PURE   "RES\\EXTIMG.BMP"
 
 #if defined(APSTUDIO_INVOKED) || defined(EDITOR)
 #if defined(APSTUDIO_INVOKED)
-MN_CONDITIONS$(EDITOR) MENU DISCARDABLE 
+MN_CONDITIONS$(EDITOR) MENU
 #else
-MN_CONDITIONS MENU DISCARDABLE 
+MN_CONDITIONS MENU
 #endif
 BEGIN
     POPUP ""
     BEGIN
-        MENUITEM "Condition example (three parameters)", IDMN_CONDITION
+        MENUITEM "Is Headset Connected?",       ID__ISHEADSETCONNECTED
+        MENUITEM "Is Headset Asleep?",          ID__ISHEADSETASLEEP
+        POPUP "Controls"
+        BEGIN
+            MENUITEM "On Controller Connected",     ID_CONTROLS_ONCONTROLLERCONNECTED
+            MENUITEM "On Controller Disconnected",  ID_CONTROLS_ONCONTROLLERDISCONNECTED
+            MENUITEM "On Button Pressed",           ID_CONTROLS_ONBUTTONPRESSED
+            MENUITEM "On Button Released",          ID_CONTROLS_ONBUTTONRELEASED
+            MENUITEM "Button being touched?",       ID_CONTROLS_BUTTONBEINGTOUCHED
+            MENUITEM "Button being held",           ID_CONTROLS_BUTTONBEINGHELD
+            MENUITEM "On Any Button Pressed",       ID_CONTROLS_ONANYBUTTONPRESSED
+            MENUITEM "On Any Button Released",      ID_CONTROLS_ONANYBUTTONRELEASED
+            MENUITEM "Any Button being touched",    ID_CONTROLS_ANYBUTTONBEINGTOUCHED
+            MENUITEM "Any Button being held",       ID_CONTROLS_ANYBUTTONBEINGHELD
+        END
     END
 END
 #endif
 
 #if defined(APSTUDIO_INVOKED) || defined(EDITOR)
 #if defined(APSTUDIO_INVOKED)
-MN_ACTIONS$(EDITOR) MENU DISCARDABLE 
+MN_ACTIONS$(EDITOR) MENU
 #else
-MN_ACTIONS MENU DISCARDABLE 
+MN_ACTIONS MENU
 #endif
 BEGIN
     POPUP ""
     BEGIN
-        MENUITEM "Action example",              IDMN_ACTION
+        MENUITEM "Rumble",                      IDMN_ACTION
     END
 END
 #endif
 
 #if defined(APSTUDIO_INVOKED) || defined(EDITOR)
 #if defined(APSTUDIO_INVOKED)
-MN_EXPRESSIONS$(EDITOR) MENU DISCARDABLE 
+MN_EXPRESSIONS$(EDITOR) MENU
 #else
-MN_EXPRESSIONS MENU DISCARDABLE 
+MN_EXPRESSIONS MENU
 #endif
 BEGIN
     POPUP ""
     BEGIN
-        MENUITEM "Function example (three parameters)", IDMN_EXPRESSION
-        MENUITEM "Return String example (one parameter)", IDMN_EXPRESSION2
-        MENUITEM "Return Float example (one parameter)", IDMN_EXPRESSION3
+            POPUP "Transform - World Space"
+        BEGIN
+            MENUITEM "Position X",                  ID_TRANSFORMWORLD_POSITIONX
+            MENUITEM "Position Y",                  ID_TRANSFORMWORLD_POSITIONY
+            MENUITEM "Position Z",                  ID_TRANSFORMWORLD_POSITIONZ
+            MENUITEM "Rotation X",                  ID_TRANSFORMWORLD_ROTATIONX
+            MENUITEM "Rotation Y",                  ID_TRANSFORMWORLD_ROTATIONY
+            MENUITEM "Rotation Z",                  ID_TRANSFORMWORLD_ROTATIONZ
+        END
+        POPUP "Transform - From Camera"
+        BEGIN
+            MENUITEM "Position X",                  ID_TRANSFORM_POSITIONX
+            MENUITEM "Position Y",                  ID_TRANSFORM_POSITIONY
+            MENUITEM "Position Z",                  ID_TRANSFORM_POSITIONZ
+            MENUITEM "Rotation X",                  ID_TRANSFORM_ROTATIONX
+            MENUITEM "Rotation Y",                  ID_TRANSFORM_ROTATIONY
+            MENUITEM "Rotation Z",                  ID_TRANSFORM_ROTATIONZ
+        END
+        POPUP "Controller Transform - World Space"
+        BEGIN
+            MENUITEM "Position X",                  ID_CONTROLLERTRANSFORMWORLD_POSITIONX
+            MENUITEM "Position Y",                  ID_CONTROLLERTRANSFORMWORLD_POSITIONY
+            MENUITEM "Position Z",                  ID_CONTROLLERTRANSFORMWORLD_POSITIONZ
+            MENUITEM "Rotation X",                  ID_CONTROLLERTRANSFORMWORLD_ROTATIONX
+            MENUITEM "Rotation Y",                  ID_CONTROLLERTRANSFORMWORLD_ROTATIONY
+            MENUITEM "Rotation Z",                  ID_CONTROLLERTRANSFORMWORLD_ROTATIONZ
+        END
+        POPUP "Controller Transform - From Camera"
+        BEGIN
+            MENUITEM "Position X",                  ID_CONTROLLERTRANSFORM_POSITIONX
+            MENUITEM "Position Y",                  ID_CONTROLLERTRANSFORM_POSITIONY
+            MENUITEM "Position Z",                  ID_CONTROLLERTRANSFORM_POSITIONZ
+            MENUITEM "Rotation X",                  ID_CONTROLLERTRANSFORM_ROTATIONX
+            MENUITEM "Rotation Y",                  ID_CONTROLLERTRANSFORM_ROTATIONY
+            MENUITEM "Rotation Z",                  ID_CONTROLLERTRANSFORM_ROTATIONZ
+        END
+        POPUP "Controls"
+        BEGIN
+            MENUITEM "Get Last Button",             ID_CONTROLS_GETLASTBUTTON
+            MENUITEM "Get Axis",                    ID_CONTROLS_GETAXIS
+        END
     END
 END
 #endif
@@ -158,20 +205,18 @@ END
 
 #if defined(APSTUDIO_INVOKED) || defined(EDITOR)
 #if defined(APSTUDIO_INVOKED)
-DB_SETUP$(EDITOR) DIALOG DISCARDABLE  0, 4, 200, 172
+DB_SETUP$(EDITOR) DIALOGEX 0, 4, 200, 172
 #else
-DB_SETUP DIALOG DISCARDABLE  0, 4, 200, 172
+DB_SETUP DIALOGEX 0, 4, 200, 172
 #endif
-STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
-CAPTION "Setup sample object"
-FONT 8, "Helv"
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "FusionXR"
+FONT 8, "Helv", 0, 0, 0x0
 BEGIN
-    PUSHBUTTON      "Cancel",IDCANCEL,75,150,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,146,149,50,14
     DEFPUSHBUTTON   "OK",IDOK,5,150,50,14
-    PUSHBUTTON      "Help",ID_HELP,145,150,50,14
     GROUPBOX        "",-1,5,6,190,135
-    LTEXT           "Please define your own setup box here! \n \nIf you do not need any setup box, just delete it from the resource and remove the call from the CreateObject and SelectPopup routines in the C sourcecode.",
-                    -1,21,50,155,60
+    LTEXT           "Welcome to FusionXR. It's pretty broken right now and doesn't have SteamVR support, but it's still pretty fun",-1,21,50,155,60
 END
 #endif
 
@@ -182,12 +227,12 @@ END
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE DISCARDABLE 
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE DISCARDABLE 
+2 TEXTINCLUDE 
 BEGIN
     "#include ""..\\..\\Inc\\ccx.h""\r\n"
     "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
@@ -196,7 +241,7 @@ BEGIN
     "\0"
 END
 
-3 TEXTINCLUDE DISCARDABLE 
+3 TEXTINCLUDE 
 BEGIN
     "\r\n"
     "\0"
@@ -207,49 +252,104 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    "DB_SETUP$(EDITOR)", DIALOG
+    BEGIN
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     KPX_MARK                "MF2"
-    KPX_NAME                "My New Extension"
+    KPX_NAME                "FusionXR"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
-    M_ACTION                "00Action example"
+    M_ACTION                "00Rumble"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
-    M_CONDITION             "Condition example: %0 + %1 = %2"
-    M_CND_P1                "Enter First Value"
-    M_CND_P2                "Enter Second Value"
-    M_CND_P3                "Enter Value to Match"
+    M_IsHeadsetConnected    "Is Headset Connected?"
+    M_IsHeadsetAsleep       "Is Headset Asleep?"
+    M_OnControllerConnected "On Controller Connected"
+    M_OnControllerDisconnected "On Controller Disconnected"
+    M_OnButtonPressed       "On Button %0 Pressed (Controller %1)"
+    M_OnButtonReleased      "On Button %0 Released (Controller %1)"
+    M_ButtonBeingTouched    "Button %0 being touched (Controller %1)"
+    M_ButtonBeingHeld       "Button %0 being held (Controller %1)"
+    M_OnAnyButtonPressed    "On Any Button Pressed (Controller %0)"
+    M_OnAnyButtonReleased   "On Any Button Released (Controller %0)"
+    M_AnyButtonBeingTouched "Any Button being touched (Controller %0)"
+    M_AnyButtonBeingHeld    "Any Button being held (Controller %0)"
 END
 
-STRINGTABLE DISCARDABLE 
+
+
+STRINGTABLE
 BEGIN
-    M_EXPRESSION            "Function("
+    M_CND_ENTER_CONTROLLER_ID "Controller ID"
+    M_CND_ENTER_BUTTON_ID   "Button ID"
+    M_CND_ENTER_AXIS_ID     "Axis ID"
+    M_CND_ENTER_INTENSITY   "Intensity"
+    M_CND_ENTER_DURATION    "Duration"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
-    M_EXPRESSION2           "Reverse$("
-    M_EXPRESSION3           "DivFloatByTwo("
+    M_CWorldPosX            "CWorldPosX("
+    M_CWorldPosY            "CWorldPosY("
+    M_CWorldPosZ            "CWorldPosZ("
+    M_CWorldRotX            "CWorldRotX("
+    M_CWorldRotY            "CWorldRotY("
+    M_CWorldRotZ            "CWorldRotZ("
+    M_CLocalPosX            "CLocalPosX("
+    M_CLocalPosY            "CLocalPosY("
+	M_CLocalPosZ            "CLocalPosZ("
+    M_CLocalRotX            "CLocalRotX("
+    M_CLocalRotY            "CLocalRotY("
+    M_CLocalRotZ            "CLocalRotZ("
+    M_HWorldPosX            "HWorldPosX("
+    M_HWorldPosY            "HWorldPosY("
+    M_HWorldPosZ            "HWorldPosZ("
+    M_HWorldRotX            "HWorldRotX("
+    M_HWorldRotY            "HWorldRotY("
+    M_HWorldRotZ            "HWorldRotZ("
+    M_HLocalPosX            "HLocalPosX("
+    M_HLocalPosY            "HLocalPosY("
+    M_HLocalPosZ            "HLocalPosZ("
+    M_HLocalRotX            "HLocalRotX("
+    M_HLocalRotY            "HLocalRotY("
+    M_HLocalRotZ            "HLocalRotZ("
+    M_LastButton            "LastButton("
+    M_AxisValue             "AxisValue("
 END
 
-STRINGTABLE DISCARDABLE 
+
+
+STRINGTABLE
 BEGIN
-    IDST_OBJNAME            "My New Extension"
-    IDST_AUTHOR             "The extension's author"
-    IDST_COPYRIGHT          "Copyright © 2005 Extension Author"
-    IDST_COMMENT            "Quick description displayed in the Insert Object dialog box and in the object's About properties."
-    IDST_HTTP               "http://www.authorswebpage.com"
+    IDST_OBJNAME            "FusionXR"
+    IDST_AUTHOR             "1987kostya"
+    IDST_COPYRIGHT          "Copyright © 2024 1987kostya"
+    IDST_COMMENT            "Allows you to use Oculus Link and WMR compatible headsets with the Firefly engine. No SteamVR support"
+    IDST_HTTP               "https://kostyaslair.com"
 END
 
-#endif    // English (U.S.) resources
+#endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

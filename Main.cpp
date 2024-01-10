@@ -8,6 +8,7 @@
 
 // Common Include
 #include	"fcommon.h"
+#include "FusionXR.h"
 
 // Quick memo: content of the eventInformations arrays
 // ---------------------------------------------------
@@ -20,27 +21,72 @@
 // Parameter_TitleString [Number_of_parameters]
 
 // Definitions of parameters for each condition
-short conditionsInfos[]=
-		{
-		IDMN_CONDITION, M_CONDITION, CND_CONDITION, EVFLAGS_ALWAYS, 3, PARAM_EXPRESSION, PARAM_EXPRESSION, PARAM_EXPRESSION, M_CND_P1, M_CND_P2, M_CND_P3,
-		};
+short conditionsInfos[] =
+{
+	
+ID__ISHEADSETCONNECTED,					M_IsHeadsetConnected    	,CND_IsHeadsetConnected    	,			EVFLAGS_ALWAYS, 0,																
+ID__ISHEADSETASLEEP,					M_IsHeadsetAsleep    		,CND_IsHeadsetAsleep    		,		EVFLAGS_ALWAYS, 0,																			
+ID_CONTROLS_ONCONTROLLERCONNECTED,		M_OnControllerConnected 	,CND_OnControllerConnected 	,			EVFLAGS_ALWAYS, 0,																			
+ID_CONTROLS_ONCONTROLLERDISCONNECTED,	M_OnControllerDisconnected	,CND_OnControllerDisconnected	,		EVFLAGS_ALWAYS, 0,																			
+ID_CONTROLS_ONBUTTONPRESSED,			M_OnButtonPressed 			,CND_OnButtonPressed 			,		EVFLAGS_ALWAYS, 2,PARAM_EXPRESSION,PARAM_EXPRESSION,M_CND_ENTER_CONTROLLER_ID,M_CND_ENTER_BUTTON_ID,
+ID_CONTROLS_ONBUTTONRELEASED,			M_OnButtonReleased 			,CND_OnButtonReleased 		,			EVFLAGS_ALWAYS, 2,PARAM_EXPRESSION,PARAM_EXPRESSION,M_CND_ENTER_CONTROLLER_ID,M_CND_ENTER_BUTTON_ID,
+ID_CONTROLS_BUTTONBEINGTOUCHED,			M_ButtonBeingTouched 		,CND_ButtonBeingTouched 		,		EVFLAGS_ALWAYS, 2,PARAM_EXPRESSION,PARAM_EXPRESSION,M_CND_ENTER_CONTROLLER_ID,M_CND_ENTER_BUTTON_ID,
+ID_CONTROLS_BUTTONBEINGHELD,			M_ButtonBeingHeld 			,CND_ButtonBeingHeld 			,		EVFLAGS_ALWAYS, 2,PARAM_EXPRESSION,PARAM_EXPRESSION,M_CND_ENTER_CONTROLLER_ID,M_CND_ENTER_BUTTON_ID,
+ID_CONTROLS_ONANYBUTTONPRESSED,			M_OnAnyButtonPressed 		,CND_OnAnyButtonPressed 		,		EVFLAGS_ALWAYS, 1,PARAM_EXPRESSION,M_CND_ENTER_CONTROLLER_ID,
+ID_CONTROLS_ONANYBUTTONRELEASED,		M_OnAnyButtonReleased 		,CND_OnAnyButtonReleased 		,		EVFLAGS_ALWAYS, 1,PARAM_EXPRESSION,M_CND_ENTER_CONTROLLER_ID,
+ID_CONTROLS_ANYBUTTONBEINGTOUCHED,		M_AnyButtonBeingTouched 	,CND_AnyButtonBeingTouched 	,			EVFLAGS_ALWAYS, 1,PARAM_EXPRESSION,M_CND_ENTER_CONTROLLER_ID,
+ID_CONTROLS_ANYBUTTONBEINGHELD,			M_AnyButtonBeingHeld 		,CND_AnyButtonBeingHeld 		,		EVFLAGS_ALWAYS, 0,0,0
+ };
 
 // Definitions of parameters for each action
 short actionsInfos[]=
 		{
-		IDMN_ACTION, M_ACTION,	ACT_ACTION,	0, 0,
+		IDMN_ACTION, M_ACTION,	ACT_ACTION,0,0
 		};
 
 // Definitions of parameters for each expression
 short expressionsInfos[]=
 		{
-		IDMN_EXPRESSION, M_EXPRESSION, EXP_EXPRESSION, 0, 3, EXPPARAM_LONG, EXPPARAM_LONG, EXPPARAM_LONG, 0, 0, 0,
+
+		ID_TRANSFORMWORLD_POSITIONX,			M_HWorldPosX, EXP_HWorldPosX, EXPFLAG_DOUBLE, 0,
+		ID_TRANSFORMWORLD_POSITIONY,			M_HWorldPosY, EXP_HWorldPosY, EXPFLAG_DOUBLE, 0,
+		ID_TRANSFORMWORLD_POSITIONZ,			M_HWorldPosZ, EXP_HWorldPosZ, EXPFLAG_DOUBLE, 0,
+
+		ID_TRANSFORMWORLD_ROTATIONX,			M_HWorldRotX, EXP_HWorldRotX, EXPFLAG_DOUBLE, 0,
+		ID_TRANSFORMWORLD_ROTATIONY,			M_HWorldRotY, EXP_HWorldRotY, EXPFLAG_DOUBLE, 0,
+		ID_TRANSFORMWORLD_ROTATIONZ,			M_HWorldRotZ, EXP_HWorldRotZ, EXPFLAG_DOUBLE, 0,
+
+		ID_TRANSFORM_POSITIONX,					M_HLocalPosX, EXP_HLocalPosX, EXPFLAG_DOUBLE, 0,
+		ID_TRANSFORM_POSITIONY,					M_HLocalPosY, EXP_HLocalPosY, EXPFLAG_DOUBLE, 0,
+		ID_TRANSFORM_POSITIONZ,					M_HLocalPosZ, EXP_HLocalPosZ, EXPFLAG_DOUBLE, 0,
+																			  
+		ID_TRANSFORM_ROTATIONX,					M_HLocalRotX, EXP_HLocalRotX, EXPFLAG_DOUBLE, 0,
+		ID_TRANSFORM_ROTATIONY,					M_HLocalRotY, EXP_HLocalRotY, EXPFLAG_DOUBLE, 0,
+		ID_TRANSFORM_ROTATIONZ,					M_HLocalRotZ, EXP_HLocalRotZ, EXPFLAG_DOUBLE, 0,
+
+		ID_CONTROLLERTRANSFORMWORLD_POSITIONX,	M_CWorldPosX, EXP_CWorldPosX, EXPFLAG_DOUBLE, 1, EXPPARAM_LONG, M_CND_ENTER_CONTROLLER_ID,
+		ID_CONTROLLERTRANSFORMWORLD_POSITIONY,	M_CWorldPosY, EXP_CWorldPosY, EXPFLAG_DOUBLE, 1, EXPPARAM_LONG, M_CND_ENTER_CONTROLLER_ID,
+		ID_CONTROLLERTRANSFORMWORLD_POSITIONZ,	M_CWorldPosZ, EXP_CWorldPosZ, EXPFLAG_DOUBLE, 1, EXPPARAM_LONG, M_CND_ENTER_CONTROLLER_ID, 
+
+		ID_CONTROLLERTRANSFORMWORLD_ROTATIONX,	M_CWorldRotX, EXP_CWorldRotX, EXPFLAG_DOUBLE, 1, EXPPARAM_LONG, M_CND_ENTER_CONTROLLER_ID, 
+		ID_CONTROLLERTRANSFORMWORLD_ROTATIONY,	M_CWorldRotY, EXP_CWorldRotY, EXPFLAG_DOUBLE, 1, EXPPARAM_LONG, M_CND_ENTER_CONTROLLER_ID, 
+		ID_CONTROLLERTRANSFORMWORLD_ROTATIONZ,	M_CWorldRotZ, EXP_CWorldRotZ, EXPFLAG_DOUBLE, 1, EXPPARAM_LONG, M_CND_ENTER_CONTROLLER_ID, 
+
+		ID_CONTROLLERTRANSFORM_POSITIONX,		M_CLocalPosX, EXP_CLocalPosX, EXPFLAG_DOUBLE, 1, EXPPARAM_LONG,  M_CND_ENTER_CONTROLLER_ID, 
+		ID_CONTROLLERTRANSFORM_POSITIONY,		M_CLocalPosY, EXP_CLocalPosY, EXPFLAG_DOUBLE, 1, EXPPARAM_LONG,  M_CND_ENTER_CONTROLLER_ID, 
+		ID_CONTROLLERTRANSFORM_POSITIONZ,		M_CLocalPosZ, EXP_CLocalPosZ, EXPFLAG_DOUBLE, 1, EXPPARAM_LONG,  M_CND_ENTER_CONTROLLER_ID, 
+
+		ID_CONTROLLERTRANSFORM_ROTATIONX,		M_CLocalRotX, EXP_CLocalRotX, EXPFLAG_DOUBLE, 1, EXPPARAM_LONG,  M_CND_ENTER_CONTROLLER_ID, 
+		ID_CONTROLLERTRANSFORM_ROTATIONY,		M_CLocalRotY, EXP_CLocalRotY, EXPFLAG_DOUBLE, 1, EXPPARAM_LONG,  M_CND_ENTER_CONTROLLER_ID, 
+		ID_CONTROLLERTRANSFORM_ROTATIONZ,		M_CLocalRotZ, EXP_CLocalRotZ, EXPFLAG_DOUBLE, 1, EXPPARAM_LONG,  M_CND_ENTER_CONTROLLER_ID, 
+
+		ID_CONTROLS_GETLASTBUTTON,				M_LastButton, EXP_LastButton, 0, 2, EXPPARAM_LONG, EXPPARAM_LONG, 0, 0,
+		ID_CONTROLS_GETAXIS,					M_AxisValue,  EXP_AxisValue,  EXPFLAG_DOUBLE, 2, EXPPARAM_LONG,EXPPARAM_LONG,0, 0,
+
 		
-		//Note in the following.  If you are returning a string, you set the EXPFLAG_STRING.	
-		IDMN_EXPRESSION2, M_EXPRESSION2, EXP_EXPRESSION2, EXPFLAG_STRING, 1, EXPPARAM_STRING, 0,
-		
-		//Note in the following.  If you are returning a float, you set the EXPFLAG_DOUBLE
-		IDMN_EXPRESSION3, M_EXPRESSION3, EXP_EXPRESSION3, EXPFLAG_DOUBLE, 1, EXPPARAM_LONG, 0,
+
+
+
 		};
 
 
@@ -113,60 +159,107 @@ short WINAPI DLLExport Action(LPRDATA rdPtr, long param1, long param2)
 // -----------------
 // Add three values
 // 
-long WINAPI DLLExport Expression(LPRDATA rdPtr,long param1)
-{
+//long p1 = CNC_GetFirstExpressionParameter(rdPtr, param1, TYPE_INT);
+//long p2 = CNC_GetNextExpressionParameter(rdPtr, param1, TYPE_INT);
+//long p3 = CNC_GetNextExpressionParameter(rdPtr, param1, TYPE_INT);
 
+
+long WINAPI DLLExport CamWorldPosX(LPRDATA rdPtr,long param1)
+{
+	rdPtr->rHo.hoFlags |= HOF_FLOAT;
+	return *(int*)&fusionXrData.headXPos;
+}
+long WINAPI DLLExport CamWorldPosY(LPRDATA rdPtr, long param1)
+{
+	rdPtr->rHo.hoFlags |= HOF_FLOAT;
+	return *(int*)&fusionXrData.headYPos;
+}
+long WINAPI DLLExport CamWorldPosZ(LPRDATA rdPtr, long param1)
+{
+	rdPtr->rHo.hoFlags |= HOF_FLOAT;
+	return *(int*)&fusionXrData.headZPos;
+}
+long WINAPI DLLExport CamWorldRotX(LPRDATA rdPtr, long param1)
+{
+	rdPtr->rHo.hoFlags |= HOF_FLOAT;
+	return *(int*)&fusionXrData.headXRot;
+}
+long WINAPI DLLExport CamWorldRotY(LPRDATA rdPtr, long param1)
+{
+	rdPtr->rHo.hoFlags |= HOF_FLOAT;
+	return *(int*)&fusionXrData.headYRot;
+}
+long WINAPI DLLExport CamWorldRotZ(LPRDATA rdPtr, long param1)
+{
+	rdPtr->rHo.hoFlags |= HOF_FLOAT;
+	return *(int*)&fusionXrData.headZRot;
+}
+long WINAPI DLLExport ControllerWorldPosX(LPRDATA rdPtr, long param1)
+{
+	long p1 = CNC_GetFirstExpressionParameter(rdPtr, param1, TYPE_INT);
+	FusionXRHandData* hand = p1 == 0 ? &fusionXrData.leftHand : &fusionXrData.rightHand;
+	rdPtr->rHo.hoFlags |= HOF_FLOAT;
+	return *(int*)&hand->xPos;
+}
+long WINAPI DLLExport ControllerWorldPosY(LPRDATA rdPtr, long param1)
+{
+	long p1 = CNC_GetFirstExpressionParameter(rdPtr, param1, TYPE_INT);
+	FusionXRHandData* hand = p1 == 0 ? &fusionXrData.leftHand : &fusionXrData.rightHand;
+	rdPtr->rHo.hoFlags |= HOF_FLOAT;
+	return *(int*)&hand->yPos;
+}
+long WINAPI DLLExport ControllerWorldPosZ(LPRDATA rdPtr, long param1)
+{
+	long p1 = CNC_GetFirstExpressionParameter(rdPtr, param1, TYPE_INT);
+	FusionXRHandData* hand = p1 == 0 ? &fusionXrData.leftHand : &fusionXrData.rightHand;
+	rdPtr->rHo.hoFlags |= HOF_FLOAT;
+	return *(int*)&hand->zPos;
+}
+long WINAPI DLLExport ControllerWorldRotX(LPRDATA rdPtr, long param1)
+{
+	long p1 = CNC_GetFirstExpressionParameter(rdPtr, param1, TYPE_INT);
+	FusionXRHandData* hand = p1 == 0 ? &fusionXrData.leftHand : &fusionXrData.rightHand;
+	rdPtr->rHo.hoFlags |= HOF_FLOAT;
+	return *(int*)&hand->xRot;
+}
+long WINAPI DLLExport ControllerWorldRotY(LPRDATA rdPtr, long param1)
+{
+	long p1 = CNC_GetFirstExpressionParameter(rdPtr, param1, TYPE_INT);
+	FusionXRHandData* hand = p1 == 0 ? &fusionXrData.leftHand : &fusionXrData.rightHand;
+	rdPtr->rHo.hoFlags |= HOF_FLOAT;
+	return *(int*)&hand->yRot;
+}
+long WINAPI DLLExport ControllerWorldRotZ(LPRDATA rdPtr, long param1)
+{
+	long p1 = CNC_GetFirstExpressionParameter(rdPtr, param1, TYPE_INT);
+	FusionXRHandData* hand = p1 == 0 ? &fusionXrData.leftHand : &fusionXrData.rightHand;
+	rdPtr->rHo.hoFlags |= HOF_FLOAT;
+	return *(int*)&hand->zRot;
+}
+long WINAPI DLLExport GetAxisValue(LPRDATA rdPtr, long param1)
+{
 	long p1 = CNC_GetFirstExpressionParameter(rdPtr, param1, TYPE_INT);
 	long p2 = CNC_GetNextExpressionParameter(rdPtr, param1, TYPE_INT);
-	long p3 = CNC_GetNextExpressionParameter(rdPtr, param1, TYPE_INT);
-
-	// Performs the wonderfull calculation
-	return p1+p2+p3;
-}
-
-
-//Reverse the string passed in.
-long WINAPI DLLExport Expression2(LPRDATA rdPtr,long param1)
-{
-	char *temp;
-
-	long p1 = CNC_GetFirstExpressionParameter(rdPtr, param1, TYPE_STRING);
-
-	//I'm storing the string pointer returned into a char *
-	temp = (LPSTR)p1;
-
-	//Reversing the string.
-	_strrev(temp);
-	
-	//Setting the HOF_STRING flag lets MMF know that you are a string.
-	rdPtr->rHo.hoFlags |= HOF_STRING;
-	
-	//This returns a pointer to the string for MMF.
-	return (long)temp;
-}
-
-//Divide the float by 2.
-long WINAPI DLLExport Expression3(LPRDATA rdPtr,long param1)
-{
-	long p1 = CNC_GetFirstExpressionParameter(rdPtr, param1, TYPE_FLOAT);
-
-	//Floats are tricky.  If you want to pass in a float, you must do the
-	//following to convert the long to a true float, but only when you use
-	//TYPE_FLOAT.
-	float fp1 = *(float *)&p1;
-
-	//Just doing simple math now.
-	fp1 /=2;
-
-	//Setting the HOF_FLOAT flag lets MMF know that you are returning a float.
+	FusionXRHandData* hand = p1 == 0 ? &fusionXrData.leftHand : &fusionXrData.rightHand;
 	rdPtr->rHo.hoFlags |= HOF_FLOAT;
-
-	//Return the float without conversion
-	return *((int*)&fp1);
+	float returnValue = 0;
+	switch (p2)
+	{
+	case 0:
+		returnValue = hand->yAxis;
+		break;
+	case 1:
+		returnValue = hand->xAxis;
+		break;
+	case 2:
+		returnValue = hand->trigger;
+		break;
+	case 3:
+		returnValue = hand->grip;
+		break;
+	}
+	return *(int*)&returnValue;
 }
-
-
-
 // ----------------------------------------------------------
 // Condition / Action / Expression jump table
 // ----------------------------------------------------------
@@ -177,6 +270,17 @@ long WINAPI DLLExport Expression3(LPRDATA rdPtr,long param1)
 //
 long (WINAPI * ConditionJumps[])(LPRDATA rdPtr, long param1, long param2) = 
 			{ 
+			Condition,
+			Condition,
+			Condition,
+			Condition,
+			Condition,
+			Condition,
+			Condition,
+			Condition,
+			Condition,
+			Condition,
+			Condition,
 			Condition,
 			0
 			};
@@ -189,8 +293,31 @@ short (WINAPI * ActionJumps[])(LPRDATA rdPtr, long param1, long param2) =
 
 long (WINAPI * ExpressionJumps[])(LPRDATA rdPtr, long param) = 
 			{     
-			Expression,
-			Expression2,
-			Expression3,
-			0
+			CamWorldPosX,
+			CamWorldPosY,
+			CamWorldPosZ,
+			CamWorldRotX,
+			CamWorldRotY,
+			CamWorldRotZ,
+			CamWorldPosX,
+			CamWorldPosY,
+			CamWorldPosZ,
+			CamWorldRotX,
+			CamWorldRotY,
+			CamWorldRotZ,
+			ControllerWorldPosX,
+			ControllerWorldPosY,
+			ControllerWorldPosZ,
+			ControllerWorldRotX,
+			ControllerWorldRotY,
+			ControllerWorldRotZ,
+			ControllerWorldPosX,
+			ControllerWorldPosY,
+			ControllerWorldPosZ,
+			ControllerWorldRotX,
+			ControllerWorldRotY,
+			ControllerWorldRotZ,
+			0, //last button
+			GetAxisValue, //axis value
+			0,
 			};

@@ -25,13 +25,13 @@ HINSTANCE hInstLib;
 // do them in "Initialize" found in Edittime.cpp
 BOOL WINAPI DllMain(HINSTANCE hDLL, DWORD dwReason, LPVOID lpReserved)
 {
+	AllocConsole();
+	freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
 	switch (dwReason)
 	{
 		// DLL is attaching to the address space of the current process.
 		case DLL_PROCESS_ATTACH:
-			AllocConsole();
-			freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
-			printf("This works\n");
+			
 			hInstLib = hDLL; // Store HINSTANCE
 			break;
 
@@ -59,7 +59,6 @@ BOOL WINAPI DllMain(HINSTANCE hDLL, DWORD dwReason, LPVOID lpReserved)
 //
 extern "C" int WINAPI DLLExport Initialize(mv _far *mV, int quiet)
 {
-	
 	// No error
 	return 0;
 }

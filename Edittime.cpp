@@ -323,22 +323,7 @@ BOOL CALLBACK DLLExport setupProc(HWND hDlg,uint msgType,WPARAM wParam,LPARAM lP
 int WINAPI DLLExport CreateObject(mv _far *mV, fpLevObj loPtr, LPEDATA edPtr)
 {
 #ifndef RUN_ONLY
-	// Check compatibility
-	if ( IS_COMPATIBLE(mV) )
-	{
-		// Set default object settings
-//		edPtr->swidth = 32;
-//		edPtr->sheight = 32;
-
-		// Call setup (remove this and return 0 if your object does not need a setup)
-		setupParams	spa;
-		spa.edpt = edPtr;
-		spa.kv = mV;
-		if ( DialogBoxParam(hInstLib, MAKEINTRESOURCE(DB_SETUP), mV->mvHEditWin, setupProc, (LPARAM)(LPBYTE)&spa) == IDOK )
-		{
-			return 0;	// No error
-		}
-	}
+	return 0;
 #endif // !defined(RUN_ONLY)
 
 	// Error

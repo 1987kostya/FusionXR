@@ -13,25 +13,22 @@
 #include "common.h"
 #include "gfxwrapper_opengl.h"
 #include "xr_linear.h"
-bool g_sessionRunning{ false };
 // Include the file that describes the cubes we draw in this example.
-#include "geometry.h"
+//#include "geometry.h"
 #define GLFW_INCLUDE_GLU  
 #define GLFW_EXPOSE_NATIVE_WGL 
 #define GLFW_EXPOSE_NATIVE_WIN32
-#include "GLFW/glfw3.h"
-#include "GLFW/glfw3native.h"
+//#include "GLFW/glfw3.h"
+//#include "GLFW/glfw3native.h"
 #include "FusionXR.h"
 
 
-#include <irrlicht.h>
-#ifdef _IRR_WINDOWS_
-#pragma comment(lib, "Irrlicht.lib")
-#endif
-using namespace irr;
+//#include <irrlicht.h>
+
 
 unsigned g_verbosity = 1;
-
+bool renderForPc=false;
+bool g_sessionRunning = false;
 static void Usage(std::string name)
 {
     std::cout << "Usage: " << name << " [--verbosity V]" << std::endl;
@@ -163,7 +160,6 @@ void CheckProgram(GLuint prog) {
     }
 }
 
-IrrlichtDevice* device;
 static void OpenGLInitializeResources()
 {
     glGenFramebuffers(1, &g_swapchainFramebuffer);
@@ -390,7 +386,7 @@ static uint32_t OpenGLGetDepthTexture(uint32_t colorTexture)
 
 XrCompositionLayerProjectionView currentLayerInfo;
 static void OpenGLRenderView(const XrCompositionLayerProjectionView& layerView, const XrSwapchainImageBaseHeader* swapchainImage,
-    int64_t swapchainFormat, const std::vector<Space>& spaces)
+    int64_t swapchainFormat, const std::vector<Space>& spaces, int viewIndex)
 {
     glBindFramebuffer(GL_FRAMEBUFFER, g_swapchainFramebuffer);
     const uint32_t colorTexture = reinterpret_cast<const XrSwapchainImageOpenGLKHR*>(swapchainImage)->image;
@@ -412,9 +408,15 @@ static void OpenGLRenderView(const XrCompositionLayerProjectionView& layerView, 
     gayDrawAll();
     gayEndScene();
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    gayBeginScene();
-    gayDrawAll();
-    gayEndScene();
+    if (viewIndex == 1)
+    {
+        renderForPc = true;
+        gayBeginScene();
+        gayDrawAll();
+        gayEndScene();
+        renderForPc = false;
+    }
+    
 }
 
 
@@ -459,6 +461,9 @@ namespace Side {
 
 struct InputState {
     XrActionSet actionSet{ XR_NULL_HANDLE };
+    XrAction triggerAction{ XR_NULL_HANDLE };
+    XrAction joystickXAction{ XR_NULL_HANDLE };
+    XrAction joystickYAction{ XR_NULL_HANDLE };
     XrAction grabAction{ XR_NULL_HANDLE };
     XrAction poseAction{ XR_NULL_HANDLE };
     XrAction vibrateAction{ XR_NULL_HANDLE };
@@ -513,6 +518,7 @@ void OpenXRCreateInstance()
     createInfo.next = nullptr;  // Needs to be set on Android.
     createInfo.enabledExtensionCount = (uint32_t)extensions.size();
     createInfo.enabledExtensionNames = extensions.data();
+    
 
     /// @todo Change the application name here.
     strcpy(createInfo.applicationInfo.applicationName, "OpenXR-OpenGL-Example");
@@ -621,6 +627,28 @@ void OpenXRInitializeActions() {
         actionInfo.subactionPaths = g_input.handSubactionPath.data();
         CHECK_XRCMD(xrCreateAction(g_input.actionSet, &actionInfo, &g_input.grabAction));
 
+        // Create an input action for using objects with the left and right hands.
+        actionInfo.actionType = XR_ACTION_TYPE_FLOAT_INPUT;
+        strcpy_s(actionInfo.actionName, "trigger_value");
+        strcpy_s(actionInfo.localizedActionName, "Trigger Value");
+        actionInfo.countSubactionPaths = uint32_t(g_input.handSubactionPath.size());
+        actionInfo.subactionPaths = g_input.handSubactionPath.data();
+        CHECK_XRCMD(xrCreateAction(g_input.actionSet, &actionInfo, &g_input.triggerAction));
+
+        actionInfo.actionType = XR_ACTION_TYPE_FLOAT_INPUT;
+        strcpy_s(actionInfo.actionName, "thumbstick_x_value");
+        strcpy_s(actionInfo.localizedActionName, "Thumbstick X Value");
+        actionInfo.countSubactionPaths = uint32_t(g_input.handSubactionPath.size());
+        actionInfo.subactionPaths = g_input.handSubactionPath.data();
+        CHECK_XRCMD(xrCreateAction(g_input.actionSet, &actionInfo, &g_input.joystickXAction));
+
+        actionInfo.actionType = XR_ACTION_TYPE_FLOAT_INPUT;
+        strcpy_s(actionInfo.actionName, "thumbstick_y_value");
+        strcpy_s(actionInfo.localizedActionName, "Thumbstick Y Value");
+        actionInfo.countSubactionPaths = uint32_t(g_input.handSubactionPath.size());
+        actionInfo.subactionPaths = g_input.handSubactionPath.data();
+        CHECK_XRCMD(xrCreateAction(g_input.actionSet, &actionInfo, &g_input.joystickYAction));
+
         // Create an input action getting the left and right hand poses.
         actionInfo.actionType = XR_ACTION_TYPE_POSE_INPUT;
         strcpy_s(actionInfo.actionName, "hand_pose");
@@ -650,13 +678,15 @@ void OpenXRInitializeActions() {
 
     std::array<XrPath, Side::COUNT> selectPath;
     std::array<XrPath, Side::COUNT> squeezeValuePath;
+    std::array<XrPath, Side::COUNT> triggerValuePath;
+    std::array<XrPath, Side::COUNT> joystickXValuePath;
+    std::array<XrPath, Side::COUNT> joystickYValuePath;
     std::array<XrPath, Side::COUNT> squeezeForcePath;
     std::array<XrPath, Side::COUNT> squeezeClickPath;
     std::array<XrPath, Side::COUNT> posePath;
     std::array<XrPath, Side::COUNT> hapticPath;
     std::array<XrPath, Side::COUNT> menuClickPath;
     std::array<XrPath, Side::COUNT> bClickPath;
-    std::array<XrPath, Side::COUNT> triggerValuePath;
     CHECK_XRCMD(xrStringToPath(g_instance, "/user/hand/left/input/select/click", &selectPath[Side::LEFT]));
     CHECK_XRCMD(xrStringToPath(g_instance, "/user/hand/right/input/select/click", &selectPath[Side::RIGHT]));
     CHECK_XRCMD(xrStringToPath(g_instance, "/user/hand/left/input/squeeze/value", &squeezeValuePath[Side::LEFT]));
@@ -675,6 +705,10 @@ void OpenXRInitializeActions() {
     CHECK_XRCMD(xrStringToPath(g_instance, "/user/hand/right/input/b/click", &bClickPath[Side::RIGHT]));
     CHECK_XRCMD(xrStringToPath(g_instance, "/user/hand/left/input/trigger/value", &triggerValuePath[Side::LEFT]));
     CHECK_XRCMD(xrStringToPath(g_instance, "/user/hand/right/input/trigger/value", &triggerValuePath[Side::RIGHT]));
+    CHECK_XRCMD(xrStringToPath(g_instance, "/user/hand/left/input/thumbstick/x", &joystickXValuePath[Side::LEFT]));
+    CHECK_XRCMD(xrStringToPath(g_instance, "/user/hand/right/input/thumbstick/x", &joystickXValuePath[Side::RIGHT]));
+    CHECK_XRCMD(xrStringToPath(g_instance, "/user/hand/left/input/thumbstick/y", &joystickYValuePath[Side::LEFT]));
+    CHECK_XRCMD(xrStringToPath(g_instance, "/user/hand/right/input/thumbstick/y", &joystickYValuePath[Side::RIGHT]));
     // Suggest bindings for KHR Simple.
     {
         XrPath khrSimpleInteractionProfilePath;
@@ -702,6 +736,12 @@ void OpenXRInitializeActions() {
             xrStringToPath(g_instance, "/interaction_profiles/oculus/touch_controller", &oculusTouchInteractionProfilePath));
         std::vector<XrActionSuggestedBinding> bindings{ {{g_input.grabAction, squeezeValuePath[Side::LEFT]},
                                                         {g_input.grabAction, squeezeValuePath[Side::RIGHT]},
+                                                        {g_input.triggerAction, triggerValuePath[Side::LEFT]},
+                                                        {g_input.triggerAction, triggerValuePath[Side::RIGHT]},
+                                                        {g_input.joystickXAction, joystickXValuePath[Side::LEFT]},
+                                                        {g_input.joystickXAction, joystickXValuePath[Side::RIGHT]},
+                                                        {g_input.joystickYAction, joystickYValuePath[Side::LEFT]},
+                                                        {g_input.joystickYAction, joystickYValuePath[Side::RIGHT]},
                                                         {g_input.poseAction, posePath[Side::LEFT]},
                                                         {g_input.poseAction, posePath[Side::RIGHT]},
                                                         {g_input.quitAction, menuClickPath[Side::LEFT]},
@@ -1044,6 +1084,37 @@ void OpenXRPollEvents(bool* exitRenderLoop, bool* requestRestart) {
     }
 }
 
+
+float OpenXRGetFloatActionValue(int hand, XrAction action)
+{
+    XrActionStateGetInfo getInfo{ XR_TYPE_ACTION_STATE_GET_INFO };
+    getInfo.action = action;
+    getInfo.subactionPath = g_input.handSubactionPath[hand];
+
+    XrActionStateFloat grabValue{ XR_TYPE_ACTION_STATE_FLOAT };
+    CHECK_XRCMD(xrGetActionStateFloat(g_session, &getInfo, &grabValue));
+    if (grabValue.isActive == XR_TRUE) {
+
+        return grabValue.currentState;
+    }
+}
+XrVector2f OpenXRGetVector2ActionValue(int hand, XrAction action)
+{
+    XrActionStateGetInfo getInfo{ XR_TYPE_ACTION_STATE_GET_INFO };
+    getInfo.action = action;
+    getInfo.subactionPath = g_input.handSubactionPath[hand];
+
+    XrActionStateVector2f grabValue{ XR_TYPE_ACTION_STATE_VECTOR2F };
+    (xrGetActionStateVector2f(g_session, &getInfo, &grabValue));
+    if (grabValue.isActive == XR_TRUE) {
+
+        return grabValue.currentState;
+    }
+}
+void OpenXrApplyHaptics()
+{
+}
+
 void OpenXRPollActions() {
     g_input.handActive = { XR_FALSE, XR_FALSE };
 
@@ -1056,28 +1127,15 @@ void OpenXRPollActions() {
 
     // Get pose and grab action state and start haptic vibrate when hand is 90% squeezed.
     for (auto hand : { Side::LEFT, Side::RIGHT }) {
+        
+        FusionXRHandData* currentHandData = hand == 0 ? &fusionXrData.leftHand : &fusionXrData.rightHand;
+        currentHandData->trigger = OpenXRGetFloatActionValue(hand, g_input.triggerAction);
+        currentHandData->grip = OpenXRGetFloatActionValue(hand, g_input.grabAction);
+        currentHandData->xAxis = OpenXRGetFloatActionValue(hand,g_input.joystickXAction);
+        currentHandData->yAxis = OpenXRGetFloatActionValue(hand, g_input.joystickYAction);
+
         XrActionStateGetInfo getInfo{ XR_TYPE_ACTION_STATE_GET_INFO };
-        getInfo.action = g_input.grabAction;
         getInfo.subactionPath = g_input.handSubactionPath[hand];
-
-        XrActionStateFloat grabValue{ XR_TYPE_ACTION_STATE_FLOAT };
-        CHECK_XRCMD(xrGetActionStateFloat(g_session, &getInfo, &grabValue));
-        if (grabValue.isActive == XR_TRUE) {
-            // Scale the rendered hand by 1.0f (open) to 0.5f (fully squeezed).
-            g_input.handScale[hand] = 1.0f - 0.5f * grabValue.currentState;
-            if (grabValue.currentState > 0.9f) {
-                XrHapticVibration vibration{ XR_TYPE_HAPTIC_VIBRATION };
-                vibration.amplitude = 0.5;
-                vibration.duration = XR_MIN_HAPTIC_DURATION;
-                vibration.frequency = XR_FREQUENCY_UNSPECIFIED;
-
-                XrHapticActionInfo hapticActionInfo{ XR_TYPE_HAPTIC_ACTION_INFO };
-                hapticActionInfo.action = g_input.vibrateAction;
-                hapticActionInfo.subactionPath = g_input.handSubactionPath[hand];
-                CHECK_XRCMD(xrApplyHapticFeedback(g_session, &hapticActionInfo, (XrHapticBaseHeader*)&vibration));
-            }
-        }
-
         getInfo.action = g_input.poseAction;
         XrActionStatePose poseState{ XR_TYPE_ACTION_STATE_POSE };
         CHECK_XRCMD(xrGetActionStatePose(g_session, &getInfo, &poseState));
@@ -1142,6 +1200,7 @@ bool OpenXRRenderLayer(XrTime predictedDisplayTime, std::vector<XrCompositionLay
     // Render a 10cm cube scaled by grabAction for each hand. Note renderHand will only be
     // true when the application has focus.
     /// @todo Remove these if you do not want to draw things in hand space.
+    
     const char* handName[] = { "left", "right" };
     for (auto hand : { Side::LEFT, Side::RIGHT }) {
         XrSpaceLocation spaceLocation{ XR_TYPE_SPACE_LOCATION };
@@ -1150,9 +1209,14 @@ bool OpenXRRenderLayer(XrTime predictedDisplayTime, std::vector<XrCompositionLay
         if (XR_UNQUALIFIED_SUCCESS(res)) {
             if ((spaceLocation.locationFlags & XR_SPACE_LOCATION_POSITION_VALID_BIT) != 0 &&
                 (spaceLocation.locationFlags & XR_SPACE_LOCATION_ORIENTATION_VALID_BIT) != 0) {
-                float scale = 0.1f * g_input.handScale[hand];
-                std::string name = handName[hand]; name += "Hand";
-                spaces.push_back(Space{ spaceLocation.pose, {scale, scale, scale},name });
+                FusionXRHandData* currentData = hand == 0 ? &fusionXrData.leftHand : &fusionXrData.rightHand;
+                const float RADTODEG = 180 / 3.14159265358979323846264338;
+                currentData->xPos = spaceLocation.pose.position.x;
+                currentData->yPos = spaceLocation.pose.position.y;
+                currentData->zPos = spaceLocation.pose.position.z;
+                currentData->xRot = spaceLocation.pose.orientation.x* RADTODEG;
+                currentData->yRot = spaceLocation.pose.orientation.y* RADTODEG;
+                currentData->zRot = spaceLocation.pose.orientation.z* RADTODEG;
             }
         }
         else {
@@ -1186,14 +1250,21 @@ bool OpenXRRenderLayer(XrTime predictedDisplayTime, std::vector<XrCompositionLay
         projectionLayerViews[i].subImage.swapchain = viewSwapchain.handle;
         projectionLayerViews[i].subImage.imageRect.offset = { 0, 0 };
         projectionLayerViews[i].subImage.imageRect.extent = { viewSwapchain.width, viewSwapchain.height };
+           
+
 
         const XrSwapchainImageBaseHeader* const swapchainImage = g_swapchainImages[viewSwapchain.handle][swapchainImageIndex];
-        OpenGLRenderView(projectionLayerViews[i], swapchainImage, g_colorSwapchainFormat, spaces);
+        OpenGLRenderView(projectionLayerViews[i], swapchainImage, g_colorSwapchainFormat, spaces,i);
 
         XrSwapchainImageReleaseInfo releaseInfo{ XR_TYPE_SWAPCHAIN_IMAGE_RELEASE_INFO };
         CHECK_XRCMD(xrReleaseSwapchainImage(viewSwapchain.handle, &releaseInfo));
     }
-
+    fusionXrData.headXPos = (g_views[0].pose.position.x + g_views[1].pose.position.x) / 2.0f;
+    fusionXrData.headYPos = (g_views[0].pose.position.y + g_views[1].pose.position.y) / 2.0f;
+    fusionXrData.headZPos = (g_views[0].pose.position.z + g_views[1].pose.position.z) / 2.0f;
+    fusionXrData.headXRot = (g_views[0].pose.orientation.x + g_views[1].pose.orientation.x) / 2.0f;
+    fusionXrData.headYRot = (g_views[0].pose.orientation.y + g_views[1].pose.orientation.y) / 2.0f;
+    fusionXrData.headZRot = (g_views[0].pose.orientation.z + g_views[1].pose.orientation.z) / 2.0f;
     layer.space = g_appSpace;
     layer.viewCount = (uint32_t)projectionLayerViews.size();
     layer.views = projectionLayerViews.data();

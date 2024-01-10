@@ -43,7 +43,7 @@ WORD DebugTree[]=
 
 #endif // !defined(RUN_ONLY)
 
-
+FusionXRData fusionXrData;
 // --------------------
 // GetRunObjectDataSize
 // --------------------
@@ -196,8 +196,11 @@ void __fastcall cameraRender_h(int* self)
 	const float DEGTORAD = 3.14159265358979323846264338 / 180;
 
 	XrQuaternionf orientation = XrQuaternionf{ pose.orientation.w,-pose.orientation.z,pose.orientation.y,pose.orientation.x };
-	XrVector3f position = XrVector3f{ -pose.position.x,pose.position.y,-pose.position.z }; //TODO might need to do -y here
+	XrVector3f position = XrVector3f{ pose.position.x,pose.position.y,pose.position.z }; //TODO might need to do -y here
 
+	float ogX = *xRot;
+	float ogY = *yRot;
+	float ogZ = *zRot;
 	//*xRot = orientation.x* RADTODEG;
 	//*yRot = orientation.y* RADTODEG;
 	//*zRot = orientation.z* RADTODEG;
@@ -206,12 +209,21 @@ void __fastcall cameraRender_h(int* self)
 
 	cameraRender_o(self);
 
+	*xRot = ogX;
+	*yRot = ogY;
+	*zRot = ogZ;
+
 	DWORD opengl_render_this = *(DWORD*)((int)lastRdata + 0x280);
 	DWORD driver = opengl_render_this + 12;
 	XrMatrix4x4f toProj;
 	XrMatrix4x4f temp;
 	XrMatrix4x4f proj;
-	XrMatrix4x4f_CreateProjectionFov(&toProj, GRAPHICS_OPENGL, currentLayerInfo.fov, 0.05f, 100.0f);
+	XrFovf fov;
+	const float fovMultiplier = 1.1f;
+	if (!renderForPc)
+		fov = currentLayerInfo.fov;
+	else fov = XrFovf{ currentLayerInfo.fov.angleLeft * fovMultiplier,currentLayerInfo.fov.angleRight * fovMultiplier,currentLayerInfo.fov.angleUp * fovMultiplier,currentLayerInfo.fov.angleDown * fovMultiplier };
+	XrMatrix4x4f_CreateProjectionFov(&toProj, GRAPHICS_OPENGL, fov, 0.05f, 5000.0f);
 	//XrMatrix4x4f_InvertRigidBody(&proj, &toProj);
 	XrMatrix4x4f_CreateScale(&temp, -1, -1, -1);
 	XrMatrix4x4f_Multiply(&proj, &toProj, &temp);
@@ -226,15 +238,15 @@ void __fastcall cameraRender_h(int* self)
 
 	XrMatrix4x4f view;
 	XrMatrix4x4f_CreateTranslationRotationScale(&toView, &position, &orientation, &scale);
-	XrMatrix4x4f translation;
-	XrMatrix4x4f_CreateTranslation(&translation, -*xPos, -*yPos, -*zPos);
-
-
-	XrMatrix4x4f_Multiply(&toViewTranslated, &toView, &translation);
+	
 
 	XrMatrix4x4f rotation;
-	XrMatrix4x4f_CreateRotation(&rotation, -*xRot,-*yRot,-*zRot);
-	XrMatrix4x4f_Multiply(&view, &toViewTranslated, &rotation);
+	XrMatrix4x4f_CreateRotation(&rotation, -*xRot,-(*yRot+180),-*zRot);
+	XrMatrix4x4f_Multiply(&toViewRotated, &toView, &rotation);
+
+	XrMatrix4x4f translation;
+	XrMatrix4x4f_CreateTranslation(&translation, -*xPos, -*yPos, -*zPos);
+	XrMatrix4x4f_Multiply(&view, &toViewRotated, &translation);
 
 	//XrMatrix4x4f_InvertRigidBody(&view, &toView);
 	setTransform_o(*(int**)driver, 2, (int*)&proj);
@@ -254,12 +266,13 @@ short __stdcall CFile_Open_h(LPRDATA rdPtr)
 	//	break;
 	//}
 
-	if (true) {//g_sessionRunning) {
+	if (g_sessionRunning) {
 		OpenXRPollActions();
 		OpenXRRenderFrame();
 	}
 	else {
 		// Throttle loop since xrWaitFrame won't be called.
+		Sleep(250);
 		//std::this_thread::sleep_for(std::chrono::milliseconds(250));
 	}
 	
@@ -636,6 +649,7 @@ COLORREF WINAPI GetRunObjectTextColor(LPRDATA rdPtr)
 	// -------
 	return 0;	// rdPtr->m_dwColor;
 }
+
 
 // ---------------------
 // SetRunObjectTextColor

@@ -10,8 +10,19 @@
 // ------------------------------
 // DEFINITION OF CONDITIONS CODES
 // ------------------------------
-#define	CND_CONDITION				0
-#define	CND_LAST					1
+#define CND_IsHeadsetConnected			0
+#define CND_IsHeadsetAsleep    			1
+#define CND_OnControllerConnected		2
+#define CND_OnControllerDisconnected	3
+#define CND_OnButtonPressed 			4
+#define CND_OnButtonReleased 			5
+#define CND_ButtonBeingTouched 			6
+#define CND_ButtonBeingHeld 			7
+#define CND_OnAnyButtonPressed 			8
+#define CND_OnAnyButtonReleased 		9
+#define CND_AnyButtonBeingTouched		10
+#define CND_AnyButtonBeingHeld 			11
+#define	CND_LAST						12
 
 // ---------------------------
 // DEFINITION OF ACTIONS CODES
@@ -22,10 +33,34 @@
 // -------------------------------
 // DEFINITION OF EXPRESSIONS CODES
 // -------------------------------
-#define	EXP_EXPRESSION				0
-#define EXP_EXPRESSION2				1
-#define EXP_EXPRESSION3				2
-#define	EXP_LAST                    3
+
+#define EXP_HWorldPosX				0
+#define EXP_HWorldPosY				1
+#define EXP_HWorldPosZ				2
+#define EXP_HWorldRotX				3
+#define EXP_HWorldRotY				4
+#define EXP_HWorldRotZ				5
+#define EXP_HLocalPosX				6
+#define EXP_HLocalPosY				7
+#define EXP_HLocalPosZ				8
+#define EXP_HLocalRotX				9
+#define EXP_HLocalRotY				10
+#define EXP_HLocalRotZ				11
+#define EXP_CWorldPosX				12
+#define EXP_CWorldPosY				13
+#define EXP_CWorldPosZ				14
+#define EXP_CWorldRotX				15
+#define EXP_CWorldRotY				16
+#define EXP_CWorldRotZ				17
+#define EXP_CLocalPosX				18
+#define EXP_CLocalPosY				19
+#define EXP_CLocalPosZ				20
+#define EXP_CLocalRotX				21
+#define EXP_CLocalRotY				22
+#define EXP_CLocalRotZ				23
+#define EXP_LastButton				24
+#define EXP_AxisValue				25
+#define EXP_LAST					26
 
 // ---------------------
 // OBJECT DATA STRUCTURE 
