@@ -258,6 +258,8 @@ long WINAPI DLLExport GetAxisValue(LPRDATA rdPtr, long param1)
 		returnValue = hand->grip;
 		break;
 	}
+	if (isnan(returnValue))
+		returnValue = 0;
 	return *(int*)&returnValue;
 }
 // ----------------------------------------------------------

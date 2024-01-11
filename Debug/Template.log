@@ -6,11 +6,29 @@ D:\Repos\FusionXR\Extensions\Template\sdk-files\xr_linear.h(518,26): warning C42
 D:\Repos\FusionXR\Extensions\Template\sdk-files\xr_linear.h(518,23): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
   (compiling source file 'FusionXR.cpp')
   
-D:\Repos\FusionXR\Extensions\New\FusionXR.cpp(1213,44): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\Repos\FusionXR\Extensions\New\FusionXR.cpp(1100,1): warning C4715: 'OpenXRGetFloatActionValue': not all control paths return a value
-D:\Repos\FusionXR\Extensions\New\FusionXR.cpp(1113,1): warning C4715: 'OpenXRGetVector2ActionValue': not all control paths return a value
-C:\Program Files\Microsoft Visual Studio\2022\Preview\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1392,5): warning MSB8012: TargetPath(D:\Repos\FusionXR\Extensions\New\Debug\Template.dll) does not match the Linker's OutputFile property value (D:\Repos\FusionXR\Extensions\New\Debug\Template.mfx). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+D:\Repos\FusionXR\Extensions\Template\FusionXR.h(55,28): warning C4305: 'initializing': truncation from 'double' to 'float'
+  (compiling source file 'FusionXR.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\FusionXR.h(65,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'FusionXR.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\FusionXR.h(66,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'FusionXR.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\FusionXR.h(68,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'FusionXR.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\FusionXR.h(73,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'FusionXR.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\FusionXR.h(74,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'FusionXR.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\FusionXR.cpp(1087,51): warning C4305: '*=': truncation from 'double' to 'float'
+D:\Repos\FusionXR\Extensions\Template\FusionXR.cpp(1088,52): warning C4305: '*=': truncation from 'double' to 'float'
+D:\Repos\FusionXR\Extensions\Template\FusionXR.cpp(1089,50): warning C4305: '*=': truncation from 'double' to 'float'
+D:\Repos\FusionXR\Extensions\Template\FusionXR.cpp(1016,1): warning C4715: 'OpenXRGetFloatActionValue': not all control paths return a value
+D:\Repos\FusionXR\Extensions\Template\FusionXR.cpp(1029,1): warning C4715: 'OpenXRGetVector2ActionValue': not all control paths return a value
+C:\Program Files\Microsoft Visual Studio\2022\Preview\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1392,5): warning MSB8012: TargetPath(D:\Repos\FusionXR\Extensions\Template\Debug\Template.dll) does not match the Linker's OutputFile property value (D:\Repos\FusionXR\Extensions\Template\Debug\Template.mfx). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
 C:\Program Files\Microsoft Visual Studio\2022\Preview\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1393,5): warning MSB8012: TargetExt(.dll) does not match the Linker's OutputFile property value (.mfx). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
-Edittime.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
-     Creating library .\Debug/Template.lib and object .\Debug/Template.exp
-  Template.vcxproj -> D:\Repos\FusionXR\Extensions\New\Debug\Template.dll
+  Template.vcxproj -> D:\Repos\FusionXR\Extensions\Template\Debug\Template.dll

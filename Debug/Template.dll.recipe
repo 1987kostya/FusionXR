@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\Repos\FusionXR\Extensions\New\Debug\Template.dll</FullPath>
+      <FullPath>D:\Repos\FusionXR\Extensions\Template\Debug\Template.dll</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

@@ -61,19 +61,7 @@ ushort WINAPI DLLExport GetRunObjectDataSize(fprh rhPtr, LPEDATA edPtr)
 // The routine where the object is actually created
 // 
 //short WINAPI DLLExport DisplayRunObject(LPRDATA rdPtr)
-struct VseHotyatOtMenyaSeks
-{
-	void* a;
-	void* b;
-	void* c;
-
-};
-typedef bool(__thiscall* beginScene_t)(int*,bool,bool,int,const VseHotyatOtMenyaSeks&,int*);
-beginScene_t beginScene_o;
-typedef bool(__thiscall* endScene_t)(int*);
-endScene_t endScene_o;
-
-void gayBeginScene()
+void wrapBeginScene()
 {
 	int ptr = (int)lastRdata;
 	DWORD opengl_render_this = *(DWORD*)(ptr + 0x280);
@@ -95,7 +83,7 @@ void gayBeginScene()
 		call eax
 	}
 }
-void gayEndScene()
+void wrapEndScene()
 {
 	int ptr = (int)lastRdata;
 	DWORD opengl_render_this = *(DWORD*)(ptr + 0x280);
@@ -111,7 +99,7 @@ void gayEndScene()
 	}
 
 }
-void gayDrawAll()
+void wrapDrawAll()
 {
 	int ptr = (int)lastRdata;
 	DWORD opengl_render_this = *(DWORD*)(ptr + 0x280);
@@ -129,29 +117,7 @@ void gayDrawAll()
 	
 }
 
-typedef void(__fastcall* drawVertexPrimitiveList_t)(int* retard,
-	int* self,
-	const void* pointer,
-	int a3,
-	const void* a4,
-	int primitiveCount,
-	int vType,
-	int pType,
-	int iType);
-drawVertexPrimitiveList_t drawVertexPrimitiveList_o;
-void __fastcall drawVertexPrimitiveList_h(int* retard,
-	int* self,
-	const void* pointer,
-	int a3,
-	const void* a4,
-	int primitiveCount,
-	int vType,
-	int pType,
-	int iType)
-{
-	// unused
-	return drawVertexPrimitiveList_o(retard, self, pointer, a3, a4, primitiveCount, vType, pType, iType);
-}
+
 void transformTarget(float* targetX, float* targetY, float* targetZ, float posX, float posY, float posZ, float rotX, float rotY, float rotZ)
 {
 	const float DEGTORAD = 3.14159265358979323846264338 / 180;
@@ -195,23 +161,31 @@ void __fastcall cameraRender_h(int* self)
 	const float RADTODEG = 180/3.14159265358979323846264338;
 	const float DEGTORAD = 3.14159265358979323846264338 / 180;
 
-	XrQuaternionf orientation = XrQuaternionf{ pose.orientation.w,-pose.orientation.z,pose.orientation.y,pose.orientation.x };
-	XrVector3f position = XrVector3f{ pose.position.x,pose.position.y,pose.position.z }; //TODO might need to do -y here
+	XrQuaternionf orientation = XrQuaternionf{ pose.orientation.w,-pose.orientation.z,pose.orientation.y,-pose.orientation.x };
+	XrVector3f position = XrVector3f{-pose.position.x,pose.position.y,pose.position.z }; //TODO might need to do -y here
 
-	float ogX = *xRot;
-	float ogY = *yRot;
-	float ogZ = *zRot;
-	//*xRot = orientation.x* RADTODEG;
-	//*yRot = orientation.y* RADTODEG;
-	//*zRot = orientation.z* RADTODEG;
+	float ogXRot = *xRot;
+	float ogYRot = *yRot;
+	float ogZRot = *zRot;
+	float ogXPos = *xPos;
+	float ogYPos = *yPos;
+	float ogZPos = *zPos;
+	*xRot = orientation.x* RADTODEG;
+	*yRot = orientation.y* RADTODEG;
+	*zRot = orientation.z* RADTODEG;
+	*xPos = pose.position.x;
+	*yPos = pose.position.y;
+	*zPos = pose.position.z;
+	transformTarget(xTarget, yTarget, zTarget, *xPos, *yPos, *zPos,*xRot,*yRot,*zRot);
 
-	//transformTarget(xTarget, yTarget, zTarget, *xPos, *yPos, *zPos,*xRot,*yRot,*zRot);
+	//cameraRender_o(self);
 
-	cameraRender_o(self);
-
-	*xRot = ogX;
-	*yRot = ogY;
-	*zRot = ogZ;
+	*xRot = ogXRot;
+	*yRot = ogYRot;
+	*zRot = ogZRot;
+	*xPos = ogXPos;
+	*yPos = ogYPos;
+	*zPos = ogZPos;
 
 	DWORD opengl_render_this = *(DWORD*)((int)lastRdata + 0x280);
 	DWORD driver = opengl_render_this + 12;
@@ -222,40 +196,54 @@ void __fastcall cameraRender_h(int* self)
 	const float fovMultiplier = 1.1f;
 	if (!renderForPc)
 		fov = currentLayerInfo.fov;
-	else fov = XrFovf{ currentLayerInfo.fov.angleLeft * fovMultiplier,currentLayerInfo.fov.angleRight * fovMultiplier,currentLayerInfo.fov.angleUp * fovMultiplier,currentLayerInfo.fov.angleDown * fovMultiplier };
+	else
+	{
+		fov = XrFovf{ currentLayerInfo.fov.angleLeft * fovMultiplier,currentLayerInfo.fov.angleRight * fovMultiplier,currentLayerInfo.fov.angleUp * fovMultiplier,currentLayerInfo.fov.angleDown * fovMultiplier };
+	}
 	XrMatrix4x4f_CreateProjectionFov(&toProj, GRAPHICS_OPENGL, fov, 0.05f, 5000.0f);
 	//XrMatrix4x4f_InvertRigidBody(&proj, &toProj);
 	XrMatrix4x4f_CreateScale(&temp, -1, -1, -1);
 	XrMatrix4x4f_Multiply(&proj, &toProj, &temp);
 	XrVector3f scale{ 1.0f, 1.0f, 1.0f };
-	printf("camera: %X\n", self);
-	DWORD sceneManager = opengl_render_this + 16;
-	float* camera = (*(float***)sceneManager)[145];
 
 	XrMatrix4x4f toView;
-	XrMatrix4x4f toViewTranslated;
-	XrMatrix4x4f toViewRotated;
-
-	XrMatrix4x4f view;
 	XrMatrix4x4f_CreateTranslationRotationScale(&toView, &position, &orientation, &scale);
-	
+	XrMatrix4x4f view;
+	XrMatrix4x4f_InvertRigidBody(&view, &toView);
+
+
+	XrMatrix4x4f viewWorldRotated;
+	XrMatrix4x4f viewWorldTranslated;
 
 	XrMatrix4x4f rotation;
-	XrMatrix4x4f_CreateRotation(&rotation, -*xRot,-(*yRot+180),-*zRot);
-	XrMatrix4x4f_Multiply(&toViewRotated, &toView, &rotation);
+	XrMatrix4x4f_CreateRotation(&rotation,-*xRot , -(*yRot+ 180), -*zRot);
+	XrMatrix4x4f_Multiply(&viewWorldRotated, &view, &rotation);
 
 	XrMatrix4x4f translation;
 	XrMatrix4x4f_CreateTranslation(&translation, -*xPos, -*yPos, -*zPos);
-	XrMatrix4x4f_Multiply(&view, &toViewRotated, &translation);
+	XrMatrix4x4f_Multiply(&viewWorldTranslated, &viewWorldRotated, &translation);
+
+
+	
+
+	//XrMatrix4x4f_CreateTranslationRotationScale(&toView, &position, &orientation, &scale);
+	
+
+	//XrMatrix4x4f rotation;
+	//XrMatrix4x4f_CreateRotation(&rotation, -*xRot,-(*yRot+180),-*zRot);
+	//XrMatrix4x4f_Multiply(&toViewRotated, &toView, &rotation);
+
+	//XrMatrix4x4f translation;
+	//XrMatrix4x4f_CreateTranslation(&translation, -*xPos, -*yPos, -*zPos);
+	//XrMatrix4x4f_Multiply(&view, &toViewRotated, &translation);
 
 	//XrMatrix4x4f_InvertRigidBody(&view, &toView);
 	setTransform_o(*(int**)driver, 2, (int*)&proj);
-	setTransform_o(*(int**)driver, 0, (int*)&view);
-	//return 
+	setTransform_o(*(int**)driver, 0, (int*)&viewWorldTranslated);
 }
 int lastRdata=0;
 setTransform_t setTransform_o;
-short __stdcall CFile_Open_h(LPRDATA rdPtr)
+short __stdcall FireflyDisplayRunObject_h(LPRDATA rdPtr)
 {
 	lastRdata = (int)rdPtr;
 	bool exitRenderLoop = false;
@@ -276,7 +264,7 @@ short __stdcall CFile_Open_h(LPRDATA rdPtr)
 		//std::this_thread::sleep_for(std::chrono::milliseconds(250));
 	}
 	
-	return 0;//CFile_Open_o(lastRdata);
+	return 0;//FireflyDisplayRunObject_o(rdPtr);
 }
 
 short WINAPI DLLExport CreateRunObject(LPRDATA rdPtr, LPEDATA edPtr, fpcob cobPtr)
@@ -284,21 +272,13 @@ short WINAPI DLLExport CreateRunObject(LPRDATA rdPtr, LPEDATA edPtr, fpcob cobPt
 
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
-	CFile_Open_o = (CFile_Open_t)((int)GetModuleHandleA("FireflyEN.mfx") + 0x77890);
-	DetourAttach((PVOID*)&CFile_Open_o, CFile_Open_h);
+	FireflyDisplayRunObject_o = (FileflyDisplayRunObject_t)((int)GetModuleHandleA("FireflyEN.mfx") + 0x77890);
+	DetourAttach((PVOID*)&FireflyDisplayRunObject_o, FireflyDisplayRunObject_h);
 	DetourTransactionCommit();
 
 
-	beginScene_o = (beginScene_t)((int)GetModuleHandleA("FireflyEN.mfx") + 0xAD140);
-	endScene_o = (endScene_t)((int)GetModuleHandleA("FireflyEN.mfx") + 0xB0E30);
+
 	setTransform_o = (setTransform_t)((int)GetModuleHandleA("FireflyEN.mfx") + 0xB5F90);
-
-
-	DetourTransactionBegin();
-	DetourUpdateThread(GetCurrentThread());
-	drawVertexPrimitiveList_o = (drawVertexPrimitiveList_t)((int)GetModuleHandleA("FireflyEN.mfx") + 0xb0980);
-	DetourAttach((PVOID*)&drawVertexPrimitiveList_o, drawVertexPrimitiveList_h);
-	DetourTransactionCommit();
 
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());

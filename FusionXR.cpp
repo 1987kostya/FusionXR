@@ -159,62 +159,6 @@ void CheckProgram(GLuint prog) {
         THROW(Fmt("Link program failed: %s", msg));
     }
 }
-
-static void OpenGLInitializeResources()
-{
-    glGenFramebuffers(1, &g_swapchainFramebuffer);
-
-    /*GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &VertexShaderGlsl, nullptr);
-    glCompileShader(vertexShader);
-    CheckShader(vertexShader);
-
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &FragmentShaderGlsl, nullptr);
-    glCompileShader(fragmentShader);
-    CheckShader(fragmentShader);
-
-    g_program = glCreateProgram();
-    glAttachShader(g_program, vertexShader);
-    glAttachShader(g_program, fragmentShader);
-    glLinkProgram(g_program);
-    CheckProgram(g_program);
-
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-
-    g_modelViewProjectionUniformLocation = glGetUniformLocation(g_program, "ModelViewProjection");
-
-    g_vertexAttribCoords = glGetAttribLocation(g_program, "VertexPos");
-    g_vertexAttribColor = glGetAttribLocation(g_program, "VertexColor");
-
-    glGenBuffers(1, &g_cubeVertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, g_cubeVertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(Geometry::c_cubeVertices), Geometry::c_cubeVertices, GL_STATIC_DRAW);
-
-    glGenBuffers(1, &g_cubeIndexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_cubeIndexBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Geometry::c_cubeIndices), Geometry::c_cubeIndices, GL_STATIC_DRAW);
-
-    glGenVertexArrays(1, &g_vao);
-    glBindVertexArray(g_vao);
-    glEnableVertexAttribArray(g_vertexAttribCoords);
-    glEnableVertexAttribArray(g_vertexAttribColor);
-    glBindBuffer(GL_ARRAY_BUFFER, g_cubeVertexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, g_cubeIndexBuffer);
-    glVertexAttribPointer(g_vertexAttribCoords, 3, GL_FLOAT, GL_FALSE, sizeof(Geometry::Vertex), nullptr);
-    glVertexAttribPointer(g_vertexAttribColor, 3, GL_FLOAT, GL_FALSE, sizeof(Geometry::Vertex),
-        reinterpret_cast<const void*>(sizeof(XrVector3f)));
-    */
-    //device = createDevice(video::EDT_OPENGL, irr::core::dimension2d<u32>(640, 480), 16, false, false, false, 0);
-    //device->getSceneManager()->addCubeSceneNode();
-    //device->getSceneManager()->addCameraSceneNode(0, irr::core::vector3df(0, 30, -40), irr::core::vector3df(0, 5, 0));
-    //auto videoData = device->getVideoDriver()->getExposedVideoData().OpenGLWin32;
-    
-
-}
-//GLFWwindow* glfwWindow; // (In the accompanying source code, this variable is global for simplicity)
-
 static void OpenGLInitializeDevice(XrInstance instance, XrSystemId systemId)
 {
     // Extension function must be loaded by name
@@ -237,34 +181,6 @@ static void OpenGLInitializeDevice(XrInstance instance, XrSystemId systemId)
    // }
     g_graphicsBinding.hDC = wglGetCurrentDC();
     g_graphicsBinding.hGLRC = wglGetCurrentContext();
-
-    //g_graphicsBinding.hDC = reinterpret_cast<HDC>(videoData.HDc);//GetDC(glfwGetWin32Window(glfwWindow));//g_window.context.hDC;
-    //g_graphicsBinding.hGLRC = reinterpret_cast<HGLRC>(videoData.HRc);//g_window.context.hGLRC;
-
-    /*if (!glfwInit())
-    {
-        fprintf(stderr, "Failed to initialize GLFW\n");
-        return;
-    }
-    glfwWindowHint(GLFW_SAMPLES, sampleCount);
-    glfwWindowHint(GLFW_DEPTH_BITS, depthFormat);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OPENGL_VERSION_MAJOR); // We want OpenGL 3.3
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPENGL_VERSION_MINOR);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE); // We don't want the old OpenGL 
-    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
-
-    // Open a window and create its OpenGL context
-    glfwWindow = glfwCreateWindow(640, 480, "Tutorial 01", NULL, NULL);
-    if (glfwWindow == NULL) {
-        fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n");
-        glfwTerminate();
-        return;
-    }
-    glfwMakeContextCurrent(glfwWindow); // Initialize GLEW
-    GlInitExtensions();
-    glfwWindowHwnd = glfwGetWin32Window(glfwWindow);
-    */
     
     GlInitExtensions();
     GLint major = 0;
@@ -309,7 +225,7 @@ static void OpenGLInitializeDevice(XrInstance instance, XrSystemId systemId)
         },
         nullptr);
 
-    OpenGLInitializeResources();
+    glGenFramebuffers(1, &g_swapchainFramebuffer);
 }
 
 static int64_t OpenGLSelectColorSwapchainFormat(const std::vector<int64_t>& runtimeFormats)
@@ -403,17 +319,17 @@ static void OpenGLRenderView(const XrCompositionLayerProjectionView& layerView, 
 
     
 
-    gayBeginScene();
+    wrapBeginScene();
     memcpy(&currentLayerInfo, &layerView, sizeof(XrCompositionLayerProjectionView));
-    gayDrawAll();
-    gayEndScene();
+    wrapDrawAll();
+    wrapEndScene();
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     if (viewIndex == 1)
     {
         renderForPc = true;
-        gayBeginScene();
-        gayDrawAll();
-        gayEndScene();
+        wrapBeginScene();
+        wrapDrawAll();
+        wrapEndScene();
         renderForPc = false;
     }
     
@@ -1151,6 +1067,29 @@ void OpenXRPollActions() {
     }
 }
 
+struct Euler {
+    float roll, pitch, yaw;
+};
+
+Euler QuaternionToEuler(const XrQuaternionf& q) {
+    Euler e;
+
+    // normalize the quaternion
+    float norm = sqrt(q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w);
+    XrQuaternionf qn = { q.x / norm, q.y / norm, q.z / norm, q.w / norm };
+
+    // compute the Euler angles
+    e.roll = atan2(2 * (qn.y * qn.z + qn.w * qn.x), qn.w * qn.w - qn.x * qn.x - qn.y * qn.y + qn.z * qn.z);
+    e.pitch = atan2(2 * (qn.x * qn.z + qn.w * qn.y), qn.w * qn.w + qn.x * qn.x - qn.y * qn.y - qn.z * qn.z);
+    e.yaw = asin(2 * (qn.x * qn.y - qn.w * qn.z));
+
+    // convert to degrees
+    e.roll *= 180.0 / 3.14159265358979323846264338;
+    e.pitch *= 180.0 / 3.14159265358979323846264338;
+    e.yaw *= 180.0 / 3.14159265358979323846264338;
+
+    return e;
+}
 bool OpenXRRenderLayer(XrTime predictedDisplayTime, std::vector<XrCompositionLayerProjectionView>& projectionLayerViews,
     XrCompositionLayerProjection& layer)
 {
@@ -1210,13 +1149,11 @@ bool OpenXRRenderLayer(XrTime predictedDisplayTime, std::vector<XrCompositionLay
             if ((spaceLocation.locationFlags & XR_SPACE_LOCATION_POSITION_VALID_BIT) != 0 &&
                 (spaceLocation.locationFlags & XR_SPACE_LOCATION_ORIENTATION_VALID_BIT) != 0) {
                 FusionXRHandData* currentData = hand == 0 ? &fusionXrData.leftHand : &fusionXrData.rightHand;
-                const float RADTODEG = 180 / 3.14159265358979323846264338;
                 currentData->xPos = spaceLocation.pose.position.x;
                 currentData->yPos = spaceLocation.pose.position.y;
-                currentData->zPos = spaceLocation.pose.position.z;
-                currentData->xRot = spaceLocation.pose.orientation.x* RADTODEG;
-                currentData->yRot = spaceLocation.pose.orientation.y* RADTODEG;
-                currentData->zRot = spaceLocation.pose.orientation.z* RADTODEG;
+                currentData->zPos = -spaceLocation.pose.position.z;
+                quaternion_to_euler(spaceLocation.pose.orientation.x, spaceLocation.pose.orientation.y, spaceLocation.pose.orientation.z, spaceLocation.pose.orientation.w, &currentData->zRot,&currentData->yRot,&currentData->xRot);
+
             }
         }
         else {
@@ -1337,75 +1274,3 @@ void OpenXRTearDown()
 #endif
 }
 
-//============================================================================================
-int main(int argc, char* argv[])
-{
-    try {
-        // Parse the command line.
-        int realParams = 0;
-        for (int i = 1; i < argc; i++) {
-            if (std::string("--verbosity") == argv[i]) {
-                if (++i >= argc) { Usage(argv[0]); return 1; }
-                g_verbosity = atoi(argv[i]);
-            }
-            else if (argv[i][0] == '-') {
-                Usage(argv[0]); return 1;
-            }
-            else switch (++realParams) {
-            case 1:
-            default:
-                Usage(argv[0]);
-                return 1;
-            }
-        }
-
-        // Spawn a thread to wait for a keypress
-        static bool quitKeyPressed = false;
-        auto exitPollingThread = std::thread{ [] {
-            if (g_verbosity > 0) { std::cout << "Press any key to shutdown..." << std::endl; }
-            (void)getchar();
-            quitKeyPressed = true;
-        } };
-        exitPollingThread.detach();
-
-        bool requestRestart = false;
-        do {
-
-            // Initialize OpenXR.
-            OpenXRCreateInstance();
-            OpenXRInitializeSystem();
-            OpenXRInitializeSession();
-            OpenXRCreateSwapchains();
-
-            while (!quitKeyPressed) {
-                bool exitRenderLoop = false;
-                OpenXRPollEvents(&exitRenderLoop, &requestRestart);
-                if (exitRenderLoop) {
-                    break;
-                }
-
-                if (g_sessionRunning) {
-                    OpenXRPollActions();
-                    OpenXRRenderFrame();
-                }
-                else {
-                    // Throttle loop since xrWaitFrame won't be called.
-                    std::this_thread::sleep_for(std::chrono::milliseconds(250));
-                }
-            }
-
-            OpenXRTearDown();
-
-        } while (!quitKeyPressed && requestRestart);
-
-        return 0;
-    }
-    catch (const std::exception& ex) {
-        std::cerr << ex.what() << std::endl;
-        return 1;
-    }
-    catch (...) {
-        std::cerr << "Unknown Error" << std::endl;
-        return 1;
-    }
-}
