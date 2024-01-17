@@ -100,65 +100,10 @@ ksGpuWindow g_window{};
 
 std::list<std::vector<XrSwapchainImageOpenGLKHR>> g_swapchainImageBuffers;
 GLuint g_swapchainFramebuffer{ 0 };
-GLuint g_program{ 0 };
-GLint g_modelViewProjectionUniformLocation{ 0 };
-GLint g_vertexAttribCoords{ 0 };
-GLint g_vertexAttribColor{ 0 };
-GLuint g_vao{ 0 };
-GLuint g_cubeVertexBuffer{ 0 };
-GLuint g_cubeIndexBuffer{ 0 };
 
 // Map color buffer to associated depth buffer. This map is populated on demand.
 std::map<uint32_t, uint32_t> g_colorToDepthMap;
 
-static const char* VertexShaderGlsl = R"_(
-    #version 410
-
-    in vec3 VertexPos;
-    in vec3 VertexColor;
-
-    out vec3 PSVertexColor;
-
-    uniform mat4 ModelViewProjection;
-
-    void main() {
-       gl_Position = ModelViewProjection * vec4(VertexPos, 1.0);
-       PSVertexColor = VertexColor;
-    }
-    )_";
-
-static const char* FragmentShaderGlsl = R"_(
-    #version 410
-
-    in vec3 PSVertexColor;
-    out vec4 FragColor;
-
-    void main() {
-       FragColor = vec4(PSVertexColor, 1);
-    }
-    )_";
-
-void CheckShader(GLuint shader) {
-    GLint r = 0;
-    glGetShaderiv(shader, GL_COMPILE_STATUS, &r);
-    if (r == GL_FALSE) {
-        GLchar msg[4096] = {};
-        GLsizei length;
-        glGetShaderInfoLog(shader, sizeof(msg), &length, msg);
-        THROW(Fmt("Compile shader failed: %s", msg));
-    }
-}
-
-void CheckProgram(GLuint prog) {
-    GLint r = 0;
-    glGetProgramiv(prog, GL_LINK_STATUS, &r);
-    if (r == GL_FALSE) {
-        GLchar msg[4096] = {};
-        GLsizei length;
-        glGetProgramInfoLog(prog, sizeof(msg), &length, msg);
-        THROW(Fmt("Link program failed: %s", msg));
-    }
-}
 static void OpenGLInitializeDevice(XrInstance instance, XrSystemId systemId)
 {
     // Extension function must be loaded by name
@@ -341,24 +286,12 @@ static void OpenGLTearDown()
     if (g_swapchainFramebuffer != 0) {
         glDeleteFramebuffers(1, &g_swapchainFramebuffer);
     }
-    if (g_program != 0) {
-        glDeleteProgram(g_program);
-    }
-    if (g_vao != 0) {
-        glDeleteVertexArrays(1, &g_vao);
-    }
-    if (g_cubeVertexBuffer != 0) {
-        glDeleteBuffers(1, &g_cubeVertexBuffer);
-    }
-    if (g_cubeIndexBuffer != 0) {
-        glDeleteBuffers(1, &g_cubeIndexBuffer);
-    }
-
     for (auto& colorToDepth : g_colorToDepthMap) {
         if (colorToDepth.second != 0) {
             glDeleteTextures(1, &colorToDepth.second);
         }
     }
+    g_colorToDepthMap.clear();
 }
 
 
@@ -782,11 +715,11 @@ void OpenXRInitializeSession()
         createInfo.systemId = g_systemId;
         CHECK_XRCMD(xrCreateSession(g_instance, &createInfo, &g_session));
     }
-
+    
     /// @todo Print the reference spaces.
 
     OpenXRInitializeActions();
-    OpenXRCreateVisualizedSpaces();
+    //OpenXRCreateVisualizedSpaces();
 
     {
         XrReferenceSpaceCreateInfo referenceSpaceCreateInfo = GetXrReferenceSpaceCreateInfo(g_options.AppSpace);
@@ -1067,29 +1000,6 @@ void OpenXRPollActions() {
     }
 }
 
-struct Euler {
-    float roll, pitch, yaw;
-};
-
-Euler QuaternionToEuler(const XrQuaternionf& q) {
-    Euler e;
-
-    // normalize the quaternion
-    float norm = sqrt(q.x * q.x + q.y * q.y + q.z * q.z + q.w * q.w);
-    XrQuaternionf qn = { q.x / norm, q.y / norm, q.z / norm, q.w / norm };
-
-    // compute the Euler angles
-    e.roll = atan2(2 * (qn.y * qn.z + qn.w * qn.x), qn.w * qn.w - qn.x * qn.x - qn.y * qn.y + qn.z * qn.z);
-    e.pitch = atan2(2 * (qn.x * qn.z + qn.w * qn.y), qn.w * qn.w + qn.x * qn.x - qn.y * qn.y - qn.z * qn.z);
-    e.yaw = asin(2 * (qn.x * qn.y - qn.w * qn.z));
-
-    // convert to degrees
-    e.roll *= 180.0 / 3.14159265358979323846264338;
-    e.pitch *= 180.0 / 3.14159265358979323846264338;
-    e.yaw *= 180.0 / 3.14159265358979323846264338;
-
-    return e;
-}
 bool OpenXRRenderLayer(XrTime predictedDisplayTime, std::vector<XrCompositionLayerProjectionView>& projectionLayerViews,
     XrCompositionLayerProjection& layer)
 {
@@ -1247,30 +1157,53 @@ void OpenXRTearDown()
             xrDestroySpace(g_input.handSpace[hand]);
         }
         xrDestroyActionSet(g_input.actionSet);
+        g_input.actionSet = NULL;
     }
 
     for (Swapchain swapchain : g_swapchains) {
         xrDestroySwapchain(swapchain.handle);
     }
+    g_swapchains.clear();
 
     for (XrSpace visualizedSpace : g_visualizedSpaces) {
         xrDestroySpace(visualizedSpace);
     }
-
+    g_visualizedSpaces.clear();
     if (g_appSpace != XR_NULL_HANDLE) {
         xrDestroySpace(g_appSpace);
+        g_appSpace = NULL;
     }
 
     if (g_session != XR_NULL_HANDLE) {
         xrDestroySession(g_session);
+        g_session = NULL;
+        g_systemId = NULL;
     }
 
     if (g_instance != XR_NULL_HANDLE) {
         xrDestroyInstance(g_instance);
+        g_instance = NULL;
     }
-
+    g_configViews.clear();
 #ifdef XR_USE_PLATFORM_WIN32
     CoUninitialize();
 #endif
+}
+
+void OpenXrStartSession()
+{
+    printf("XR init\n");
+    OpenXRCreateInstance();
+    printf("Instance created\n");
+    OpenXRInitializeSystem();
+    printf("System initialized\n");
+    OpenXRInitializeSession();
+    printf("Session Initialize\n");
+    OpenXRCreateSwapchains();
+    printf("Swapchains created\n");
+}
+void OpenXrStopSession()
+{
+    OpenXRTearDown();
 }
 

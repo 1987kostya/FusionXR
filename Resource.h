@@ -7,57 +7,50 @@
 #define IDST_COPYRIGHT                  130
 #define IDST_COMMENT                    131
 #define IDST_HTTP                       132
-#define M_ACTION						5000
-#define M_IsHeadsetConnected    		6000
-#define M_IsHeadsetAsleep    			6001
-#define M_OnControllerConnected 		6002
-#define M_OnControllerDisconnected		6003
-#define M_OnButtonPressed 				6004
-#define M_OnButtonReleased 				6005
-#define M_ButtonBeingTouched 			6006
-#define M_ButtonBeingHeld 				6007
-#define M_OnAnyButtonPressed 			6008
-#define M_OnAnyButtonReleased 			6009
-#define M_AnyButtonBeingTouched 		6010
-#define M_AnyButtonBeingHeld 			6011
+#define M_ACTION                        5000
 #define M_IsHeadsetConnected            6000
-#define M_CND_ENTER_CONTROLLER_ID           6501
-#define M_CND_ENTER_BUTTON_ID               6502
-#define M_CND_ENTER_AXIS_ID                 6503
-#define M_CND_ENTER_INTENSITY               6504
-#define M_CND_ENTER_DURATION                6505
-
-
-
-
-
-#define M_HWorldPosX              7000      
-#define M_HWorldPosY              7001      
-#define M_HWorldPosZ              7002      
-#define M_HWorldRotX              7003      
-#define M_HWorldRotY              7004      
-#define M_HWorldRotZ              7005      
-#define M_HLocalPosX              7006      
-#define M_HLocalPosY              7007      
-#define M_HLocalPosZ              7008      
-#define M_HLocalRotX              7009      
-#define M_HLocalRotY              7010      
-#define M_HLocalRotZ              7011      
-#define M_CWorldPosX          		7012          
-#define M_CWorldPosY          		7013          
-#define M_CWorldPosZ          	7014          
-#define M_CWorldRotX          7015          
-#define M_CWorldRotY          7016          
-#define M_CWorldRotZ          7017          
-#define M_CLocalPosX          7018          
-#define M_CLocalPosY          7019          
-#define M_CLocalPosZ          7020          
-#define M_CLocalRotX          7021          
-#define M_CLocalRotY          		7022          
-#define M_CLocalRotZ          	7023          
-#define M_LastButton          	7024          
-#define M_AxisValue          	7025          
-
+#define M_IsHeadsetAsleep               6001
+#define M_OnControllerConnected         6002
+#define M_OnControllerDisconnected      6003
+#define M_OnButtonPressed               6004
+#define M_OnButtonReleased              6005
+#define M_ButtonBeingTouched            6006
+#define M_ButtonBeingHeld               6007
+#define M_OnAnyButtonPressed            6008
+#define M_OnAnyButtonReleased           6009
+#define M_AnyButtonBeingTouched         6010
+#define M_AnyButtonBeingHeld            6011
+#define M_CND_ENTER_CONTROLLER_ID       6501
+#define M_CND_ENTER_BUTTON_ID           6502
+#define M_CND_ENTER_AXIS_ID             6503
+#define M_CND_ENTER_INTENSITY           6504
+#define M_CND_ENTER_DURATION            6505
+#define M_HWorldPosX                    7000
+#define M_HWorldPosY                    7001
+#define M_HWorldPosZ                    7002
+#define M_HWorldRotX                    7003
+#define M_HWorldRotY                    7004
+#define M_HWorldRotZ                    7005
+#define M_HLocalPosX                    7006
+#define M_HLocalPosY                    7007
+#define M_HLocalPosZ                    7008
+#define M_HLocalRotX                    7009
+#define M_HLocalRotY                    7010
+#define M_HLocalRotZ                    7011
+#define M_CWorldPosX                    7012
+#define M_CWorldPosY                    7013
+#define M_CWorldPosZ                    7014
+#define M_CWorldRotX                    7015
+#define M_CWorldRotY                    7016
+#define M_CWorldRotZ                    7017
+#define M_CLocalPosX                    7018
+#define M_CLocalPosY                    7019
+#define M_CLocalPosZ                    7020
+#define M_CLocalRotX                    7021
+#define M_CLocalRotY                    7022
+#define M_CLocalRotZ                    7023
+#define M_LastButton                    7024
+#define M_AxisValue                     7025
 #define M_EXP_P1                        7500
 #define M_EXP_P2                        7501
 #define MN_ACTIONS                      20000
@@ -65,7 +58,7 @@
 #define MN_EXPRESSIONS                  20002
 #define DB_SETUP                        20003
 #define ID_HELP                         20004
-#define IDMN_ACTION 25000
+#define IDMN_ACTION                     25000
 #define ID__ISHEADSETCONNECTED          26000
 #define ID__ISHEADSETASLEEP             26001
 #define ID_CONTROLS_ONCONTROLLERCONNECTED 26002
@@ -102,8 +95,14 @@
 #define ID_CONTROLLERTRANSFORM_ROTATIONX 27021
 #define ID_CONTROLLERTRANSFORM_ROTATIONY 27022
 #define ID_CONTROLLERTRANSFORM_ROTATIONZ 27023
-#define ID_CONTROLS_GETLASTBUTTON        27024
-#define ID_CONTROLS_GETAXIS              27025
+#define ID_CONTROLS_GETLASTBUTTON       27024
+#define ID_CONTROLS_GETAXIS             27025
+#define ID__STARTVRSESSION              40042
+#define ID__STOPVRSESSION               40043
+#define P_AutoStartSession              50000
+#define P_AutoStopSession               50001
+#define D_AutoStartSession              51000
+#define D_AutoStopSession               51001
 
 // Next default values for new objects
 // 
@@ -111,7 +110,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        101
-#define _APS_NEXT_COMMAND_VALUE         40042
+#define _APS_NEXT_COMMAND_VALUE         40044
 #define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

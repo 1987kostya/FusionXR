@@ -67,10 +67,16 @@
 // ---------------------
 // Used at edit time and saved in the MFA/CCN/EXE files
 
+struct commonData
+{
+	bool autoStartSession;
+	bool autoStopSession;
+};
 typedef struct tagEDATA_V1
 {
 	// Header - required
 	extHeader		eHeader;
+	commonData common;
 
 	// Object's data
 //	short			swidth;
@@ -97,7 +103,8 @@ typedef struct tagRDATA
 {
 	// Main header - required
 	headerObject	rHo;					// Header
-
+	commonData common;
+	
 	// Optional headers - depend on the OEFLAGS value, see documentation and examples for more info
 //	rCom			rc;				// Common structure for movements & animations
 //	rMvt			rm;				// Movements

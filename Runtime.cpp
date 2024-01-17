@@ -55,12 +55,7 @@ ushort WINAPI DLLExport GetRunObjectDataSize(fprh rhPtr, LPEDATA edPtr)
 }
 
 
-// ---------------
-// CreateRunObject
-// ---------------
-// The routine where the object is actually created
-// 
-//short WINAPI DLLExport DisplayRunObject(LPRDATA rdPtr)
+
 void wrapBeginScene()
 {
 	int ptr = (int)lastRdata;
@@ -68,7 +63,6 @@ void wrapBeginScene()
 
 	DWORD dwPtr = opengl_render_this + 12;
 	DWORD sceneManager = opengl_render_this + 16;
-
 	__asm {
 		mov ecx, [dwPtr]
 		mov ecx, [ecx]
@@ -79,7 +73,7 @@ void wrapBeginScene()
 		push 0xFFFF00FF
 		push 3
 		mov eax, [ecx]
-		mov eax, [eax + 0x00] // где 0x00 - оффсет функции в таблице
+		mov eax, beginScene_p//[eax + 0x00] // где 0x00 - оффсет функции в таблице
 		call eax
 	}
 }
@@ -94,7 +88,7 @@ void wrapEndScene()
 		mov ecx, [dwPtr]
 		mov ecx, [ecx]
 		mov eax, [ecx]
-		mov eax, [eax + 0x04]
+		mov eax, endScene_p//[eax + 0x04]
 		call eax
 	}
 
@@ -106,12 +100,11 @@ void wrapDrawAll()
 
 	DWORD dwPtr = opengl_render_this + 12;
 	DWORD sceneManager = opengl_render_this + 16;
-	int retard = (int)GetModuleHandleA("FireflyEN.mfx") + 0x111730;
 	__asm {
 		mov ecx, [sceneManager]
 		mov ecx, [ecx]
 		mov eax, [ecx]
-		mov eax, retard//[eax + 0x04]
+		mov eax, drawAll_p//[eax + 0x04]
 		call eax
 	}
 	
@@ -178,7 +171,7 @@ void __fastcall cameraRender_h(int* self)
 	*zPos = pose.position.z;
 	transformTarget(xTarget, yTarget, zTarget, *xPos, *yPos, *zPos,*xRot,*yRot,*zRot);
 
-	//cameraRender_o(self);
+	cameraRender_o(self);
 
 	*xRot = ogXRot;
 	*yRot = ogYRot;
@@ -223,21 +216,6 @@ void __fastcall cameraRender_h(int* self)
 	XrMatrix4x4f_CreateTranslation(&translation, -*xPos, -*yPos, -*zPos);
 	XrMatrix4x4f_Multiply(&viewWorldTranslated, &viewWorldRotated, &translation);
 
-
-	
-
-	//XrMatrix4x4f_CreateTranslationRotationScale(&toView, &position, &orientation, &scale);
-	
-
-	//XrMatrix4x4f rotation;
-	//XrMatrix4x4f_CreateRotation(&rotation, -*xRot,-(*yRot+180),-*zRot);
-	//XrMatrix4x4f_Multiply(&toViewRotated, &toView, &rotation);
-
-	//XrMatrix4x4f translation;
-	//XrMatrix4x4f_CreateTranslation(&translation, -*xPos, -*yPos, -*zPos);
-	//XrMatrix4x4f_Multiply(&view, &toViewRotated, &translation);
-
-	//XrMatrix4x4f_InvertRigidBody(&view, &toView);
 	setTransform_o(*(int**)driver, 2, (int*)&proj);
 	setTransform_o(*(int**)driver, 0, (int*)&viewWorldTranslated);
 }
@@ -267,35 +245,21 @@ short __stdcall FireflyDisplayRunObject_h(LPRDATA rdPtr)
 	return 0;//FireflyDisplayRunObject_o(rdPtr);
 }
 
+// ---------------
+// CreateRunObject
+// ---------------
+// The routine where the object is actually created
+// 
 short WINAPI DLLExport CreateRunObject(LPRDATA rdPtr, LPEDATA edPtr, fpcob cobPtr)
 {
+	rdPtr->common.autoStartSession = edPtr->common.autoStartSession;
+	rdPtr->common.autoStopSession = edPtr->common.autoStopSession;
+	
 
-	DetourTransactionBegin();
-	DetourUpdateThread(GetCurrentThread());
-	FireflyDisplayRunObject_o = (FileflyDisplayRunObject_t)((int)GetModuleHandleA("FireflyEN.mfx") + 0x77890);
-	DetourAttach((PVOID*)&FireflyDisplayRunObject_o, FireflyDisplayRunObject_h);
-	DetourTransactionCommit();
+	rdPtr->common.autoStartSession = false;
 
-
-
-	setTransform_o = (setTransform_t)((int)GetModuleHandleA("FireflyEN.mfx") + 0xB5F90);
-
-	DetourTransactionBegin();
-	DetourUpdateThread(GetCurrentThread());
-	cameraRender_o = (cameraRender_t)((int)GetModuleHandleA("FireflyEN.mfx") + 0x1E1230);
-	DetourAttach((PVOID*)&cameraRender_o, cameraRender_h);
-	DetourTransactionCommit();
-
-
-	printf("XR init\n");
-	OpenXRCreateInstance();
-	printf("Instance created\n");
-	OpenXRInitializeSystem();
-	printf("System initialized\n");
-	OpenXRInitializeSession();
-	printf("Session Initialize\n");
-	OpenXRCreateSwapchains();
-	printf("Swapchains created\n");
+	if(rdPtr->common.autoStartSession)
+		OpenXrStartSession();
 /*
    This routine runs when your object is created, as you might have guessed.
    It is here that you must transfer any data you need in rdPtr from edPtr,
@@ -316,7 +280,8 @@ short WINAPI DLLExport CreateRunObject(LPRDATA rdPtr, LPEDATA edPtr, fpcob cobPt
 short WINAPI DLLExport DestroyRunObject(LPRDATA rdPtr, long fast)
 {
 	printf("XR stop\n");
-	OpenXRTearDown();
+	if (rdPtr->common.autoStopSession)
+		OpenXrStopSession();
 
 /*
    When your object is destroyed (either with a Destroy action or at the end of
@@ -528,6 +493,26 @@ BOOL WINAPI LoadRunObject(LPRDATA rdPtr, HANDLE hf)
 // 
 void WINAPI DLLExport StartApp(mv _far *mV, CRunApp* pApp)
 {
+
+	displayRunObject_p = (void*)((int)GetModuleHandleA("FireflyEN.mfx") + OFF_DISPLAY_RUN_OBJECT);
+	beginScene_p = (void*)((int)GetModuleHandleA("FireflyEN.mfx") + OFF_BEGIN_SCENE);
+	endScene_p = (void*)((int)GetModuleHandleA("FireflyEN.mfx") + OFF_END_SCENE);
+	drawAll_p = (void*)((int)GetModuleHandleA("FireflyEN.mfx") + OFF_DRAW_ALL);
+	setTransform_p = (void*)((int)GetModuleHandleA("FireflyEN.mfx") + OFF_SET_TRANSFORM);
+	cameraRender_p = (void*)((int)GetModuleHandleA("FireflyEN.mfx") + OFF_CAMERA_RENDER);
+
+	DetourTransactionBegin();
+	DetourUpdateThread(GetCurrentThread());
+	FireflyDisplayRunObject_o = (FileflyDisplayRunObject_t)displayRunObject_p;
+	DetourAttach((PVOID*)&FireflyDisplayRunObject_o, FireflyDisplayRunObject_h);
+	DetourTransactionCommit();
+	DetourTransactionBegin();
+	DetourUpdateThread(GetCurrentThread());
+	cameraRender_o = (cameraRender_t)cameraRender_p;
+	DetourAttach((PVOID*)&cameraRender_o, cameraRender_h);
+	DetourTransactionCommit();
+
+	setTransform_o = (setTransform_t)setTransform_p;
 	// Example
 	// -------
 	// Delete global data (if restarts application)

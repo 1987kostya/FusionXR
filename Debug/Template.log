@@ -1,34 +1,68 @@
 ﻿cl : command line  warning D9035: option 'Gm' has been deprecated and will be removed in a future release
-  FusionXR.cpp
+  Runtime.cpp
+  ************************ WARNING ****************************
+  ***** Do not forget to change the IDENTIFIER in Main.h! *****
+  *************************************************************
+D:\Repos\FusionXR\Extensions\Template\fusionxr.h(53,28): warning C4305: 'initializing': truncation from 'double' to 'float'
+  (compiling source file 'Runtime.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\fusionxr.h(56,53): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'Runtime.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\fusionxr.h(57,53): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'Runtime.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\fusionxr.h(58,53): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'Runtime.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\fusionxr.h(59,53): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'Runtime.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\fusionxr.h(63,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'Runtime.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\fusionxr.h(64,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'Runtime.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\fusionxr.h(65,23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'Runtime.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\fusionxr.h(66,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'Runtime.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\fusionxr.h(70,19): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'Runtime.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\fusionxr.h(71,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'Runtime.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\fusionxr.h(72,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'Runtime.cpp')
+  
+D:\Repos\FusionXR\Extensions\Template\fusionxr.h(73,22): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'Runtime.cpp')
+  
 D:\Repos\FusionXR\Extensions\Template\sdk-files\xr_linear.h(518,26): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'FusionXR.cpp')
+  (compiling source file 'Runtime.cpp')
   
 D:\Repos\FusionXR\Extensions\Template\sdk-files\xr_linear.h(518,23): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
-  (compiling source file 'FusionXR.cpp')
+  (compiling source file 'Runtime.cpp')
   
-D:\Repos\FusionXR\Extensions\Template\FusionXR.h(55,28): warning C4305: 'initializing': truncation from 'double' to 'float'
-  (compiling source file 'FusionXR.cpp')
-  
-D:\Repos\FusionXR\Extensions\Template\FusionXR.h(65,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'FusionXR.cpp')
-  
-D:\Repos\FusionXR\Extensions\Template\FusionXR.h(66,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'FusionXR.cpp')
-  
-D:\Repos\FusionXR\Extensions\Template\FusionXR.h(68,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'FusionXR.cpp')
-  
-D:\Repos\FusionXR\Extensions\Template\FusionXR.h(73,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'FusionXR.cpp')
-  
-D:\Repos\FusionXR\Extensions\Template\FusionXR.h(74,11): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  (compiling source file 'FusionXR.cpp')
-  
-D:\Repos\FusionXR\Extensions\Template\FusionXR.cpp(1087,51): warning C4305: '*=': truncation from 'double' to 'float'
-D:\Repos\FusionXR\Extensions\Template\FusionXR.cpp(1088,52): warning C4305: '*=': truncation from 'double' to 'float'
-D:\Repos\FusionXR\Extensions\Template\FusionXR.cpp(1089,50): warning C4305: '*=': truncation from 'double' to 'float'
-D:\Repos\FusionXR\Extensions\Template\FusionXR.cpp(1016,1): warning C4715: 'OpenXRGetFloatActionValue': not all control paths return a value
-D:\Repos\FusionXR\Extensions\Template\FusionXR.cpp(1029,1): warning C4715: 'OpenXRGetVector2ActionValue': not all control paths return a value
+D:\Repos\FusionXR\Extensions\Template\Runtime.cpp(116,54): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Repos\FusionXR\Extensions\Template\Runtime.cpp(117,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Repos\FusionXR\Extensions\Template\Runtime.cpp(117,17): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
+D:\Repos\FusionXR\Extensions\Template\Runtime.cpp(118,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Repos\FusionXR\Extensions\Template\Runtime.cpp(118,17): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
+D:\Repos\FusionXR\Extensions\Template\Runtime.cpp(119,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Repos\FusionXR\Extensions\Template\Runtime.cpp(119,17): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
+D:\Repos\FusionXR\Extensions\Template\Runtime.cpp(120,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Repos\FusionXR\Extensions\Template\Runtime.cpp(120,17): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
+D:\Repos\FusionXR\Extensions\Template\Runtime.cpp(121,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Repos\FusionXR\Extensions\Template\Runtime.cpp(121,17): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
+D:\Repos\FusionXR\Extensions\Template\Runtime.cpp(122,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Repos\FusionXR\Extensions\Template\Runtime.cpp(122,17): warning C4244: 'initializing': conversion from 'double' to 'const float', possible loss of data
+D:\Repos\FusionXR\Extensions\Template\Runtime.cpp(154,28): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Repos\FusionXR\Extensions\Template\Runtime.cpp(155,54): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Program Files\Microsoft Visual Studio\2022\Preview\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1392,5): warning MSB8012: TargetPath(D:\Repos\FusionXR\Extensions\Template\Debug\Template.dll) does not match the Linker's OutputFile property value (D:\Repos\FusionXR\Extensions\Template\Debug\Template.mfx). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
 C:\Program Files\Microsoft Visual Studio\2022\Preview\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(1393,5): warning MSB8012: TargetExt(.dll) does not match the Linker's OutputFile property value (.mfx). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
   Template.vcxproj -> D:\Repos\FusionXR\Extensions\Template\Debug\Template.dll

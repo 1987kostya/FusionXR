@@ -139,6 +139,8 @@ BEGIN
     POPUP ""
     BEGIN
         MENUITEM "Rumble",                      IDMN_ACTION
+        MENUITEM "Start VR Session",            ID__STARTVRSESSION
+        MENUITEM "Stop VR Session",             ID__STOPVRSESSION
     END
 END
 #endif
@@ -152,7 +154,7 @@ MN_EXPRESSIONS MENU
 BEGIN
     POPUP ""
     BEGIN
-            POPUP "Transform - World Space"
+        POPUP "Transform - World Space"
         BEGIN
             MENUITEM "Position X",                  ID_TRANSFORMWORLD_POSITIONX
             MENUITEM "Position Y",                  ID_TRANSFORMWORLD_POSITIONY
@@ -297,8 +299,6 @@ BEGIN
     M_AnyButtonBeingHeld    "Any Button being held (Controller %0)"
 END
 
-
-
 STRINGTABLE
 BEGIN
     M_CND_ENTER_CONTROLLER_ID "Controller ID"
@@ -310,6 +310,10 @@ END
 
 STRINGTABLE
 BEGIN
+    M_HLocalPosZ            "HLocalPosZ("
+    M_HLocalRotX            "HLocalRotX("
+    M_HLocalRotY            "HLocalRotY("
+    M_HLocalRotZ            "HLocalRotZ("
     M_CWorldPosX            "CWorldPosX("
     M_CWorldPosY            "CWorldPosY("
     M_CWorldPosZ            "CWorldPosZ("
@@ -318,10 +322,14 @@ BEGIN
     M_CWorldRotZ            "CWorldRotZ("
     M_CLocalPosX            "CLocalPosX("
     M_CLocalPosY            "CLocalPosY("
-	M_CLocalPosZ            "CLocalPosZ("
+    M_CLocalPosZ            "CLocalPosZ("
     M_CLocalRotX            "CLocalRotX("
     M_CLocalRotY            "CLocalRotY("
     M_CLocalRotZ            "CLocalRotZ("
+END
+
+STRINGTABLE
+BEGIN
     M_HWorldPosX            "HWorldPosX("
     M_HWorldPosY            "HWorldPosY("
     M_HWorldPosZ            "HWorldPosZ("
@@ -330,15 +338,13 @@ BEGIN
     M_HWorldRotZ            "HWorldRotZ("
     M_HLocalPosX            "HLocalPosX("
     M_HLocalPosY            "HLocalPosY("
-    M_HLocalPosZ            "HLocalPosZ("
-    M_HLocalRotX            "HLocalRotX("
-    M_HLocalRotY            "HLocalRotY("
-    M_HLocalRotZ            "HLocalRotZ("
+END
+
+STRINGTABLE
+BEGIN
     M_LastButton            "LastButton("
     M_AxisValue             "AxisValue("
 END
-
-
 
 STRINGTABLE
 BEGIN
@@ -347,6 +353,18 @@ BEGIN
     IDST_COPYRIGHT          "Copyright © 2024 1987kostya"
     IDST_COMMENT            "Allows you to use Oculus Link and WMR compatible headsets with the Firefly engine. No SteamVR support"
     IDST_HTTP               "https://kostyaslair.com"
+END
+
+STRINGTABLE
+BEGIN
+    P_AutoStartSession      "Automatically start the VR session"
+    P_AutoStopSession       "Automatically stop the VR session"
+END
+
+STRINGTABLE
+BEGIN
+    D_AutoStartSession      "If checked, the VR session will be automatically started as soon as the object is created.\n If unchecked, you need to manually start the VR session using the ""Start VR session"" action"
+    D_AutoStopSession       "If checked, the VR session will be automatically stopped as soon as the object is destroyed\n If unchecked, you need to manually stop the VR session using the ""Stop VR session"" action"
 END
 
 #endif    // English (United States) resources

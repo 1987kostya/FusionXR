@@ -18,6 +18,9 @@
 // Property identifiers
 enum {
 	PROPID_SETTINGS = PROPID_EXTITEM_CUSTOM_FIRST,
+	PROPID_AUTO_START_SESSION,
+	PROPID_AUTO_STOP_SESSION,
+	PROPID_LAST = PROPID_EXTITEM_CUSTOM_LAST
 
 // Example
 // -------
@@ -47,7 +50,8 @@ PropData Properties[] = {
 // -------
 //	PropData_Group		(PROPID_TEXTTITLE,	IDS_PROP_TEXTTITLE,		IDS_PROP_TEXTTITLE),
 //	PropData_EditString	(PROPID_TEXT,		IDS_PROP_TEXT,			IDS_PROP_TEXT_INFO),
-//	PropData_CheckBox	(PROPID_CHECK,		IDS_PROP_CHECK,			IDS_PROP_CHECK_INFO),
+	PropData_CheckBox	(PROPID_AUTO_START_SESSION,		P_AutoStartSession,			D_AutoStartSession),
+	PropData_CheckBox	(PROPID_AUTO_STOP_SESSION,		P_AutoStopSession,			D_AutoStopSession),
 //	PropData_ComboBox	(PROPID_COMBO,		IDS_PROP_COMBO,			IDS_PROP_COMBO,	ComboList),
 //	PropData_Color		(PROPID_COLOR,		IDS_PROP_COLOR,			IDS_PROP_COLOR_INFO),
 
@@ -323,6 +327,8 @@ BOOL CALLBACK DLLExport setupProc(HWND hDlg,uint msgType,WPARAM wParam,LPARAM lP
 int WINAPI DLLExport CreateObject(mv _far *mV, fpLevObj loPtr, LPEDATA edPtr)
 {
 #ifndef RUN_ONLY
+	edPtr->common.autoStartSession = false;
+	edPtr->common.autoStopSession = false;
 	return 0;
 #endif // !defined(RUN_ONLY)
 
@@ -673,6 +679,15 @@ LPVOID WINAPI DLLExport GetPropValue(LPMV mV, LPEDATA edPtr, UINT nPropID)
 BOOL WINAPI DLLExport GetPropCheck(LPMV mV, LPEDATA edPtr, UINT nPropID)
 {
 #ifndef RUN_ONLY
+
+	switch (nPropID)
+	{
+	case PROPID_AUTO_START_SESSION:
+		return edPtr->common.autoStartSession;
+		
+	case PROPID_AUTO_STOP_SESSION:
+		return edPtr->common.autoStopSession;
+	}
 	// Example
 	// -------
 //	switch (nPropID) {
@@ -697,6 +712,7 @@ void WINAPI DLLExport SetPropValue(LPMV mV, LPEDATA edPtr, UINT nPropID, LPVOID 
 	// Gets the pointer to the CPropValue structure
 	CPropValue* pValue = (CPropValue*)lParam;
 
+	
 	// Example
 	// -------
 //	switch (nPropID) {
@@ -757,6 +773,18 @@ void WINAPI DLLExport SetPropValue(LPMV mV, LPEDATA edPtr, UINT nPropID, LPVOID 
 void WINAPI DLLExport SetPropCheck(LPMV mV, LPEDATA edPtr, UINT nPropID, BOOL nCheck)
 {
 #ifndef RUN_ONLY
+
+	switch (nPropID)
+	{
+	case PROPID_AUTO_START_SESSION:
+		edPtr->common.autoStartSession = nCheck;
+		break;
+	case PROPID_AUTO_STOP_SESSION:
+		edPtr->common.autoStopSession = nCheck;
+		break;
+
+
+	}
 	// Example
 	// -------
 //	switch (nPropID)

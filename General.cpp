@@ -71,6 +71,7 @@ extern "C" int WINAPI DLLExport Initialize(mv _far *mV, int quiet)
 // 
 extern "C" int WINAPI DLLExport Free(mv _far *mV)
 {
+	printf("fusionxr module has been freed\n");
 	// No error
 	return 0;
 }
